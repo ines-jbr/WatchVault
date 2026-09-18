@@ -37,16 +37,6 @@
 * [x] Vérifier le mapping Doctrine
 * [x] Vérifier que la base de données est synchronisée avec les entités
 
-### Données de test
-
-* [x] Installer Doctrine Fixtures
-* [x] Créer `AppFixtures.php`
-* [x] Ajouter une Collection de test
-* [x] Ajouter une Montre de test
-* [x] Associer la Montre à la Collection
-* [x] Charger les fixtures
-* [x] Vérifier les données dans SQLite
-
 **État : Terminée**
 
 ---
@@ -58,6 +48,7 @@
 * [x] Configurer le mot de passe avec le système de hachage Symfony
 * [x] Associer un membre à sa Collection
 * [x] Mettre à jour le schéma de la base de données
+* [x] Vérifier le mapping Doctrine
 * [x] Ajouter un membre dans les fixtures
 * [x] Hacher le mot de passe dans les fixtures
 * [x] Charger les fixtures
@@ -67,13 +58,21 @@
 
 ---
 
-## Étape 3 — Tableau de bord Web
+## Étape 3 — proj-3 : Fixtures et données de test
 
-* [ ] Commencer la mise en place du tableau de bord Web
-* [ ] Créer les premières interfaces de consultation
-* [ ] Tester les interfaces avec les données des fixtures
+* [x] Installer Doctrine Fixtures
+* [x] Créer `AppFixtures.php`
+* [x] Ajouter plusieurs `WatchCollection`
+* [x] Ajouter plusieurs `Montre`
+* [x] Utiliser des références entre les fixtures
+* [x] Associer les `Montre` aux `WatchCollection`
+* [x] Ajouter un `Member` dans les fixtures
+* [x] Associer le `Member` à une `WatchCollection`
+* [x] Hacher le mot de passe du membre
+* [x] Charger les fixtures
+* [x] Vérifier les données dans SQLite
 
-**État : À faire**
+**État : Terminée**
 
 ---
 
@@ -115,4 +114,3 @@
 * [x] Mettre à jour le `TODO.md` après chaque étape importante
 * [x] Effectuer un commit Git après chaque étape importante
 * [ ] Vérifier l'historique Git du projet
-

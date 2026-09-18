@@ -65,23 +65,10 @@ WatchCollection (1) → (0..n) Montre
 * Une collection peut contenir zéro ou plusieurs montres
 * Chaque montre appartient obligatoirement à une collection
 * Configuration de SQLite comme base de données
-* Création et mise à jour du schéma de la base de données
+* Création de la migration de la base de données
+* Mise à jour du schéma de la base de données
 * Vérification du mapping Doctrine
-* Installation de Doctrine Fixtures
-* Création des données de test
-* Chargement des fixtures dans la base de données
-* Vérification des données directement dans SQLite
-
-### Données de test actuelles
-
-**Collection :**
-
-* `Ma collection de montres`
-
-**Montre :**
-
-* Nom : `Rolex Submariner`
-* Description : `Montre automatique de plongée`
+* Vérification de la synchronisation entre les entités et la base de données
 
 **État : Terminée**
 
@@ -95,16 +82,15 @@ WatchCollection (1) → (0..n) Montre
 * Configuration de l'identification par adresse e-mail
 * Mise en place du mot de passe avec le système de hachage Symfony
 * Association d'un `Member` avec une `WatchCollection`
-* Relation :
+* Mise en place de la relation :
 
 ```text
 Member (1) → (1) WatchCollection
 ```
 
 * Mise à jour du schéma de la base de données
-* Ajout d'un membre dans les fixtures
-* Hachage du mot de passe du membre dans les fixtures
-* Chargement et vérification des fixtures
+* Vérification du mapping Doctrine
+* Vérification de la synchronisation entre les entités et la base de données
 
 **État : Terminée**
 
@@ -112,19 +98,42 @@ Member (1) → (1) WatchCollection
 
 ## Étape 3 — Fixtures et données de test
 
-### Fonctionnalités réalisées
+### Fonctionnalités / travaux réalisés
 
+* Installation de Doctrine Fixtures
+* Création du fichier `AppFixtures.php`
 * Création de plusieurs `WatchCollection`
 * Création de plusieurs `Montre`
 * Utilisation de références Doctrine entre les fixtures
 * Association des montres à leurs collections
-* Ajout des fixtures `Member`
-* Hachage des mots de passe avec `UserPasswordHasherInterface`
+* Ajout d'un `Member` dans les fixtures
+* Association du `Member` à une `WatchCollection`
+* Hachage du mot de passe avec `UserPasswordHasherInterface`
 * Chargement des fixtures avec succès
-* Vérification des données dans SQLite
-* Vérification du mapping et du schéma Doctrine
+* Vérification des données directement dans SQLite
+* Vérification du mapping Doctrine
+* Vérification de la synchronisation du schéma Doctrine
 
-**État : Terminé**
+### Données de test
+
+**Collections :**
+
+* `Ma collection de montres`
+* `Mes montres vintage`
+
+**Montres :**
+
+* `Rolex Submariner` — Montre automatique de plongée
+* `Omega Speedmaster` — Montre chronographe
+* `Seiko 5` — Montre automatique vintage
+* `Tissot PRX` — Montre suisse classique
+
+**Membre :**
+
+* Adresse e-mail : `ines@example.com`
+* Mot de passe : haché avec le système de hachage Symfony
+
+**État : Terminée**
 
 ---
 
@@ -161,4 +170,3 @@ Member (1) → (1) WatchCollection
 * Administration des différents éléments du projet
 
 **État : À faire**
-

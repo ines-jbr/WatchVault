@@ -25,6 +25,8 @@ Chaque Montre appartient obligatoirement à une Collection.
 
 Dans le code, l'entité correspondant à la Collection est nommée **`WatchCollection`**.
 
+Un **Member** est associé à une Collection.
+
 Une **Vitrine** permettra ultérieurement de présenter publiquement une sélection de Montres.
 
 ---
@@ -85,26 +87,35 @@ WatchCollection (1) → (0..n) Montre
 
 ---
 
-## Étape 2 — Pages de consultation
+## Étape 2 — Membres
 
-### Fonctionnalités prévues
+### Fonctionnalités / travaux réalisés
 
-* Consultation des Collections
-* Consultation des Montres
-* Mise en place des premières pages permettant de consulter les données
+* Création de l'entité `Member` avec `make:user`
+* Configuration de l'identification par adresse e-mail
+* Mise en place du mot de passe avec le système de hachage Symfony
+* Association d'un `Member` avec une `WatchCollection`
+* Relation :
 
-**État : À faire**
+```text
+Member (1) → (1) WatchCollection
+```
+
+* Mise à jour du schéma de la base de données
+* Ajout d'un membre dans les fixtures
+* Hachage du mot de passe du membre dans les fixtures
+* Chargement et vérification des fixtures
+
+**État : Terminée**
 
 ---
 
-## Étape 3 — Membres
+## Étape 3 — proj-3
 
 ### Fonctionnalités prévues
 
-* Création de l'entité `Member`
-* Gestion des membres
-* Mise en place de l'authentification
-* Association d'un membre avec sa collection
+* Mise en place des premières fonctionnalités prévues par l'étape `proj-3`
+* Développement progressif des interfaces et fonctionnalités selon le guide du TP3
 
 **État : À faire**
 

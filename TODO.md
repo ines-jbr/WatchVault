@@ -13,7 +13,7 @@
 * [x] Charger le projet dans Eclipse
 * [x] Tester le serveur Symfony
 
-**État :  Terminée**
+**État : Terminée**
 
 ---
 
@@ -47,30 +47,33 @@
 * [x] Charger les fixtures
 * [x] Vérifier les données dans SQLite
 
-**État :  Terminée**
+**État : Terminée**
 
 ---
 
-## Étape 2 — Pages de consultation
+## Étape 2 — Membres
 
-* [ ] Créer les pages de consultation des Collections
-* [ ] Créer les pages de consultation des Montres
-* [ ] Afficher les données enregistrées dans la base
-* [ ] Tester les pages de consultation
+* [x] Créer l'entité `Member` avec `make:user`
+* [x] Configurer l'identification par adresse e-mail
+* [x] Configurer le mot de passe avec le système de hachage Symfony
+* [x] Associer un membre à sa Collection
+* [x] Mettre à jour le schéma de la base de données
+* [x] Ajouter un membre dans les fixtures
+* [x] Hacher le mot de passe dans les fixtures
+* [x] Charger les fixtures
+* [x] Vérifier le fonctionnement des données
 
-**État :  À faire**
+**État : Terminée**
 
 ---
 
-## Étape 3 — Membres
+## Étape 3 — proj-3
 
-* [ ] Créer l'entité `Member`
-* [ ] Mettre en place les membres
-* [ ] Mettre en place l'authentification
-* [ ] Associer un membre à sa Collection
-* [ ] Tester la gestion des membres
+* [ ] Commencer l'étape `proj-3` du TP3
+* [ ] Réaliser les fonctionnalités prévues par `proj-3`
+* [ ] Tester les fonctionnalités de `proj-3`
 
-**État :  À faire**
+**État : À faire**
 
 ---
 
@@ -81,7 +84,7 @@
 * [ ] Permettre de présenter une sélection de Montres
 * [ ] Tester les Vitrines
 
-**État :  À faire**
+**État : À faire**
 
 ---
 
@@ -92,7 +95,7 @@
 * [ ] Vérifier les droits d'accès aux différentes fonctionnalités
 * [ ] Tester les différents niveaux d'accès
 
-**État :  À faire**
+**État : À faire**
 
 ---
 
@@ -102,7 +105,7 @@
 * [ ] Gérer les données depuis l'administration
 * [ ] Tester les fonctionnalités d'administration
 
-**État :  À faire**
+**État : À faire**
 
 ---
 
@@ -110,5 +113,6 @@
 
 * [x] Documenter les étapes réalisées dans le `README.md`
 * [x] Mettre à jour le `TODO.md` après chaque étape importante
-* [ ] Effectuer un commit Git après chaque étape importante
+* [x] Effectuer un commit Git après chaque étape importante
 * [ ] Vérifier l'historique Git du projet
+

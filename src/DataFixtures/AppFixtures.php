@@ -11,26 +11,51 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
+    private const COLLECTION_PERSONNELLE = 'collection-personnelle';
+    private const COLLECTION_VINTAGE = 'collection-vintage';
+
     public function __construct(
         private UserPasswordHasherInterface $passwordHasher
     ) {
+    }
+    private static function collectionsGenerator(): \Generator
+    {
+        yield ['Ma collection de montres', self::COLLECTION_PERSONNELLE];
+        yield ['Mes montres vintage', self::COLLECTION_VINTAGE];
+    }
+
+    private static function montresGenerator(): \Generator
+    {
+        yield [self::COLLECTION_PERSONNELLE, 'Rolex Submariner', 'Montre automatique de plongée'];
+        yield [self::COLLECTION_PERSONNELLE, 'Omega Speedmaster', 'Montre chronographe'];
+        yield [self::COLLECTION_VINTAGE, 'Seiko 5', 'Montre automatique vintage'];
+        yield [self::COLLECTION_VINTAGE, 'Tissot PRX', 'Montre suisse classique'];
     }
 
     public function load(ObjectManager $manager): void
     {
         // Création d'une collection
-        $collection = new WatchCollection();
-        $collection->setDescription('Ma collection de montres');
+        foreach (self::collectionsGenerator() as [$description, $collectionReference]) {
+            $collection = new WatchCollection();
+            $collection->setDescription($description);
 
-        $manager->persist($collection);
+            $manager->persist($collection);
+            $manager->flush();
 
-        // Création d'une montre
-        $montre = new Montre();
-        $montre->setNom('Rolex Submariner');
-        $montre->setDescription('Montre automatique de plongée');
-        $montre->setWatchCollection($collection);
+            $this->addReference($collectionReference, $collection);
+        }
 
-        $manager->persist($montre);
+        // Création des montres
+        foreach (self::montresGenerator() as [$collectionReference, $nom, $description]) {
+            $montre = new Montre();
+            $montre->setNom($nom);
+            $montre->setDescription($description);
+
+            $collection = $this->getReference($collectionReference, WatchCollection::class);
+            $montre->setWatchCollection($collection);
+
+            $manager->persist($montre);
+        }
 
         // Création d'un membre
         $member = new Member();

@@ -110,14 +110,21 @@ Member (1) → (1) WatchCollection
 
 ---
 
-## Étape 3 — proj-3
+## Étape 3 — Fixtures et données de test
 
-### Fonctionnalités prévues
+### Fonctionnalités réalisées
 
-* Mise en place des premières fonctionnalités prévues par l'étape `proj-3`
-* Développement progressif des interfaces et fonctionnalités selon le guide du TP3
+* Création de plusieurs `WatchCollection`
+* Création de plusieurs `Montre`
+* Utilisation de références Doctrine entre les fixtures
+* Association des montres à leurs collections
+* Ajout des fixtures `Member`
+* Hachage des mots de passe avec `UserPasswordHasherInterface`
+* Chargement des fixtures avec succès
+* Vérification des données dans SQLite
+* Vérification du mapping et du schéma Doctrine
 
-**État : À faire**
+**État : Terminé**
 
 ---
 

@@ -67,11 +67,11 @@
 
 ---
 
-## Étape 3 — proj-3
+## Étape 3 — Tableau de bord Web
 
-* [ ] Commencer l'étape `proj-3` du TP3
-* [ ] Réaliser les fonctionnalités prévues par `proj-3`
-* [ ] Tester les fonctionnalités de `proj-3`
+* [ ] Commencer la mise en place du tableau de bord Web
+* [ ] Créer les premières interfaces de consultation
+* [ ] Tester les interfaces avec les données des fixtures
 
 **État : À faire**
 

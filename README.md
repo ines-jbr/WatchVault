@@ -29,6 +29,14 @@ Un **Member** est associé à une Collection.
 
 Une **Vitrine** permettra ultérieurement de présenter publiquement une sélection de Montres.
 
+### Relations principales
+
+```text
+WatchCollection (1) → (0..n) Montre
+
+Member (1) → (1) WatchCollection
+```
+
 ---
 
 # Suivi du développement
@@ -63,7 +71,7 @@ WatchCollection (1) → (0..n) Montre
 ```
 
 * Une collection peut contenir zéro ou plusieurs montres
-* Chaque montre appartient obligatoirement à une collection
+* Chaque Montre appartient obligatoirement à une Collection
 * Configuration de SQLite comme base de données
 * Création de la migration de la base de données
 * Mise à jour du schéma de la base de données
@@ -96,7 +104,7 @@ Member (1) → (1) WatchCollection
 
 ---
 
-## Étape 3 — Fixtures et données de test
+## Étape 3 — proj-3 : Fixtures et données de test
 
 ### Fonctionnalités / travaux réalisés
 
@@ -137,11 +145,57 @@ Member (1) → (1) WatchCollection
 
 ---
 
-## Étape 4 — Vitrines
+## Étape 4 — proj-4 : Premières pages publiques en consultation
+
+### Contrôleur `WatchCollectionController`
+
+* Génération du contrôleur `WatchCollectionController` avec `make:controller`
+* Vérification des routes avec `debug:router`
+* Vérification des contrôleurs avec `debug:router --show-controllers`
+* Test du contrôleur avec le serveur Symfony
+
+### Consultation de la liste des collections
+
+* Création de la route `/watch/collection`
+* Chargement des `WatchCollection` depuis la base de données avec Doctrine
+* Récupération des collections avec le repository Doctrine
+* Affichage de la liste des collections
+* Génération d'une page HTML de consultation
+* Test de l'affichage des collections
+
+### Consultation d'une collection
+
+* Création de la route `/watch/collection/{id}`
+* Utilisation de l'identifiant de la collection
+* Recherche d'une `WatchCollection` avec Doctrine
+* Affichage des informations de la collection
+* Gestion du cas où la collection n'existe pas avec une erreur 404
+* Ajout d'une contrainte pour accepter uniquement un identifiant numérique
+
+### Navigation entre les pages
+
+* Ajout d'un lien vers chaque collection depuis la liste
+* Utilisation de `generateUrl()` pour générer les liens
+* Utilisation de la route `watch_collection_show`
+* Test de la navigation entre la liste des collections et la page d'une collection
+
+### Correction du mapping Doctrine
+
+* Correction du type `Montre` dans `WatchCollection`
+* Correction de l'utilisation de `Montre::class`
+* Vérification du mapping entre `WatchCollection` et `Montre`
+* Vérification du fonctionnement de la consultation des collections après correction
+
+**État : Terminée**
+
+---
+
+## Étape 5 — Vitrines
 
 ### Fonctionnalités prévues
 
 * Création de l'entité `Vitrine`
+* Mise en place des vitrines
 * Présentation publique d'une sélection de montres
 * Gestion des vitrines
 
@@ -149,24 +203,26 @@ Member (1) → (1) WatchCollection
 
 ---
 
-## Étape 5 — Gestion des accès
+## Étape 6 — Gestion des accès
 
 ### Fonctionnalités prévues
 
 * Gestion des accès privés
 * Gestion des accès publics
 * Contrôle des fonctionnalités selon le type d'accès
+* Vérification des droits d'accès aux différentes fonctionnalités
 
 **État : À faire**
 
 ---
 
-## Étape 6 — Administration
+## Étape 7 — Administration
 
 ### Fonctionnalités prévues
 
 * Mise en place du back-office
 * Gestion des données de l'application
 * Administration des différents éléments du projet
+* Test des fonctionnalités d'administration
 
 **État : À faire**

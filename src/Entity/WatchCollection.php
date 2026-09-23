@@ -19,9 +19,9 @@ class WatchCollection
     private ?string $description = null;
 
     /**
-     * @var Collection<int, montre>
+     * @var Collection<int, Montre>
      */
-    #[ORM\OneToMany(targetEntity: montre::class, mappedBy: 'watchCollection')]
+    #[ORM\OneToMany(targetEntity: Montre::class, mappedBy: 'watchCollection')]
     private Collection $montres;
 
     public function __construct()
@@ -47,14 +47,14 @@ class WatchCollection
     }
 
     /**
-     * @return Collection<int, montre>
+     * @return Collection<int, Montre>
      */
     public function getMontres(): Collection
     {
         return $this->montres;
     }
 
-    public function addMontre(montre $montre): static
+    public function addMontre(Montre $montre): static
     {
         if (!$this->montres->contains($montre)) {
             $this->montres->add($montre);
@@ -64,7 +64,7 @@ class WatchCollection
         return $this;
     }
 
-    public function removeMontre(montre $montre): static
+    public function removeMontre(Montre $montre): static
     {
         if ($this->montres->removeElement($montre)) {
             // set the owning side to null (unless already changed)
@@ -76,3 +76,4 @@ class WatchCollection
         return $this;
     }
 }
+

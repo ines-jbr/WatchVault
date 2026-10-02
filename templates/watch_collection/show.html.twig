@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Collection n°{{ watchCollection.id }}{% endblock %}
+
+{% block body %}
+    <h1>Collection</h1>
+
+    {% dump watchCollection %}
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ watchCollection.id }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ watchCollection.description }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Montres</h2>
+
+    <ul>
+        {% for montre in watchCollection.montres %}
+            <li>
+                <a href="{{ path('montre_show', {'id': montre.id}) }}">
+                    {{ montre.nom }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ path('watch_collection_list') }}">back to list</a>
+
+{% endblock %}

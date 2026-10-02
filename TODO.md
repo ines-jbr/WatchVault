@@ -122,7 +122,76 @@
 
 ---
 
-## Étape 5 — Vitrines
+## Étape 5 — Gabarits Twig et navigation entre les entités
+
+### Prise en main de Twig
+
+* [x] Étudier le fonctionnement des gabarits Twig
+* [x] Utiliser `base.html.twig`
+* [x] Utiliser les blocs Twig `title` et `body`
+* [x] Utiliser `{{ }}` pour afficher des valeurs
+* [x] Utiliser `{% %}` pour les instructions Twig
+* [x] Utiliser `path()` pour générer les liens
+* [x] Utiliser `dump` pour inspecter les objets
+
+### Gabarit de consultation d'une collection
+
+* [x] Créer `templates/watch_collection/show.html.twig`
+* [x] Utiliser `{% extends 'base.html.twig' %}`
+* [x] Afficher l'identifiant de la collection
+* [x] Afficher la description de la collection
+* [x] Utiliser `dump` sur `watchCollection`
+* [x] Ajouter un lien de retour vers la liste des collections
+* [x] Utiliser la route `watch_collection_list`
+
+### Modification de `WatchCollectionController`
+
+* [x] Modifier la méthode `show()`
+* [x] Remplacer la génération manuelle du HTML par `render()`
+* [x] Transmettre `watchCollection` au gabarit Twig
+
+### Création de `MontreController`
+
+* [x] Créer `MontreController` avec `make:controller`
+* [x] Créer la route `/montre/{id}`
+* [x] Utiliser la route `montre_show`
+* [x] Rechercher une `Montre` avec Doctrine
+* [x] Gérer le cas où la montre n'existe pas avec une erreur 404
+
+### Gabarit de consultation d'une montre
+
+* [x] Créer `templates/montre/show.html.twig`
+* [x] Afficher l'identifiant de la montre
+* [x] Afficher le nom de la montre
+* [x] Afficher la description de la montre
+* [x] Utiliser `dump` sur `montre`
+
+### Affichage des montres d'une collection
+
+* [x] Utiliser `watchCollection.montres`
+* [x] Utiliser une boucle Twig `for`
+* [x] Afficher les montres appartenant à une collection
+* [x] Afficher les noms des montres dans une liste
+
+### Navigation Collection → Montre
+
+* [x] Ajouter un lien vers chaque montre depuis la page d'une collection
+* [x] Utiliser la route `montre_show`
+* [x] Transmettre l'identifiant de la montre avec `path()`
+* [x] Tester la navigation vers une page individuelle de montre
+
+### Navigation Montre → Collection
+
+* [x] Ajouter un lien de retour vers la collection depuis la page d'une montre
+* [x] Utiliser `montre.watchCollection`
+* [x] Utiliser la route `watch_collection_show`
+* [x] Tester la navigation entre une montre et sa collection
+
+**État : Terminée**
+
+---
+
+## Étape 6 — Vitrines
 
 * [ ] Créer l'entité `Vitrine`
 * [ ] Mettre en place les vitrines
@@ -133,7 +202,7 @@
 
 ---
 
-## Étape 6 — Gestion des accès
+## Étape 7 — Gestion des accès
 
 * [ ] Gérer les accès privés
 * [ ] Gérer les accès publics
@@ -144,7 +213,7 @@
 
 ---
 
-## Étape 7 — Administration
+## Étape 8 — Administration
 
 * [ ] Mettre en place le back-office
 * [ ] Gérer les données depuis l'administration

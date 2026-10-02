@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Montre n°{{ montre.id }}{% endblock %}
+
+{% block body %}
+    <h1>Montre</h1>
+
+    {% dump montre %}
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ montre.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ montre.nom }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ montre.description }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('watch_collection_show', {'id': montre.watchCollection.id}) }}">
+        back to collection
+    </a> 
+
+{% endblock %}

@@ -46,31 +46,19 @@ final class WatchCollectionController extends AbstractController
             ['content-type' => 'text/html']
         );
     }
+    
     #[Route('/watch/collection/{id}', name: 'watch_collection_show', requirements: ['id' => '\d+'])]
     public function show(ManagerRegistry $doctrine, $id): Response
     {
         $watchCollectionRepo = $doctrine->getRepository(WatchCollection::class);
         $watchCollection = $watchCollectionRepo->find($id);
-        
+
         if (!$watchCollection) {
             throw $this->createNotFoundException('The watch collection does not exist');
-        }
-        
-        $htmlpage = '<!DOCTYPE html>';
-        $htmlpage .= '<html>';
-        $htmlpage .= '<head><title>Collection</title></head>';
-        $htmlpage .= '<body>';
-        
-        $htmlpage .= '<h1>Collection</h1>';
-        $htmlpage .= '<p>Description : ' . $watchCollection->getDescription() . '</p>';
-        
-        $htmlpage .= '</body>';
-        $htmlpage .= '</html>';
-        
-        return new Response(
-            $htmlpage,
-            Response::HTTP_OK,
-            ['content-type' => 'text/html']
-            );
+            }
+
+        return $this->render('watch_collection/show.html.twig', [
+            'watchCollection' => $watchCollection,
+        ]);
     }
 }

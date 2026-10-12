@@ -191,14 +191,36 @@
 
 ---
 
-## Étape 6 — Vitrines
+## Étape 6 — Thème Bootstrap et vitrines
 
-* [ ] Créer l'entité `Vitrine`
-* [ ] Mettre en place les vitrines
-* [ ] Permettre de présenter une sélection de Montres
-* [ ] Tester les vitrines
+### Thème et navigation
 
-**État : À faire**
+* [x] Intégrer le thème Bootstrap Shop Homepage
+* [x] Configurer le chemin des ressources CSS et JavaScript
+* [x] Installer `camurphy/bootstrap-menu-bundle`
+* [x] Configurer le menu principal
+* [x] Ajouter un lien vers la liste des collections
+* [x] Vérifier l'affichage et le fonctionnement des liens
+
+### Entité Vitrine
+
+* [x] Créer l'entité `Vitrine` avec `make:entity`
+* [x] Ajouter la propriété `description` de type `string`, non nullable
+* [x] Ajouter la propriété `publiee` de type `boolean`, non nullable
+* [x] Créer la migration de la table `vitrine`
+* [x] Exécuter la migration
+* [x] Vérifier le statut des migrations
+* [x] Vérifier le mapping Doctrine des quatre entités
+
+### Travaux restant à réaliser
+
+* [ ] Associer `Member` à `Vitrine` avec une relation `OneToMany`
+* [ ] Associer `Vitrine` à `Montre` avec une relation `ManyToMany`
+* [ ] Mettre en place la gestion des vitrines
+* [ ] Permettre de présenter publiquement une sélection de montres
+* [ ] Tester le fonctionnement des vitrines
+
+**État : Partiellement terminée**
 
 ---
 

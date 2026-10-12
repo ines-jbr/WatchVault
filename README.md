@@ -31,13 +31,39 @@ Une **Vitrine** permettra ultérieurement de présenter publiquement une sélect
 
 ### Relations principales
 
-```text
+
 WatchCollection (1) → (0..n) Montre
 
 Member (1) → (1) WatchCollection
 
+## Modèle de données
+WatchCollection
+- Entité représentant une collection de montres.
+- Propriété description.
+Montre
+- Entité représentant une montre.
+- Propriétés nom et description.
+- Association avec WatchCollection.
+Member
+- Entité représentant un membre.
+- Identification par adresse e-mail.
+- Mot de passe géré par le système de hachage Symfony.
+- Association avec WatchCollection.
+Vitrine
+- Entité créée avec make:entity.
+- Propriété description de type string, non nullable.
+- Propriété publiee de type boolean, non nullable.
+- Table vitrine créée par la migration Version20261012102646.
+- Associations avec Member et Montre à réaliser ultérieurement.
+Technologies utilisées
+- PHP
+- Symfony
+- Doctrine ORM
+- SQLite
+- Twig
+- Bootstrap
 
-Suivi dcommeu développement
+## Suivi dcommeu développement
 
 Étape 0 — Mise en place du projet
 Fonctionnalités / travaux réalisés
@@ -110,7 +136,7 @@ Membre :
 - Mot de passe : haché avec le système de hachage Symfony
 État : Terminée
 
-Étape 4 — proj-4 : Premières pages publiques en consultation
+Étape 4 : Premières pages publiques en consultation
 Contrôleur WatchCollectionController
 - Génération du contrôleur WatchCollectionController avec make:controller
 - Vérification des routes avec debug:router
@@ -193,13 +219,16 @@ Navigation montre → collection
 - Test de la navigation entre une montre et sa collection
 État : Terminée
 
-Étape 6 — Vitrines
-Fonctionnalités prévues
-- Création de l'entité Vitrine
-- Mise en place des vitrines
-- Présentation publique d'une sélection de montres
-- Gestion des vitrines
-État : À faire
+Étape 6 — Thème Bootstrap et vitrines
+- Intégration du thème Bootstrap Shop Homepage.
+- Configuration du chemin des ressources CSS et JavaScript.
+- Installation et configuration de camurphy/bootstrap-menu-bundle.
+- Création d'un menu de navigation avec un lien vers les collections.
+- Création de l'entité Vitrine.
+- Ajout de description et publiee.
+- Création et exécution de la migration Version20261012102646.
+- Vérification du mapping Doctrine des quatre entités.
+État : Partiellement terminée — entité créée, associations et gestion des vitrines à réaliser.
 
 Étape 7 — Gestion des accès
 Fonctionnalités prévues

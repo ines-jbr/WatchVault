@@ -1,0 +1,7 @@
+bootstrap_menu:
+    menus:
+        main:
+            items:
+                watch_collections:
+                    label: 'Collections'
+                    route: 'watch_collection_list'

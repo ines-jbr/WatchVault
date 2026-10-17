@@ -25,7 +25,7 @@
     <ul>
         {% for montre in watchCollection.montres %}
             <li>
-                <a href="{{ path('montre_show', {'id': montre.id}) }}">
+                <a href="{{ path('app_montre_show', {'id': montre.id}) }}">
                     {{ montre.nom }}
                 </a>
             </li>

@@ -88,23 +88,28 @@ Le CRUD de Vitrine a été généré avec make:crud. Les pages de liste,
 consultation, création et modification ont été personnalisées avec Bootstrap.
 La page de détail affiche les montres associées. Le schéma Doctrine et les
 routes ont été vérifiés. L'exécution des fixtures créant une vitrine et
-ses associations reste à tester.
+ses associations reste à vérifier dans un environnement adapté.
 
 Partie 10 — Réorganisation des contrôleurs :
-À vérifier et à réaliser selon les consignes du TP : déplacement de
-l'affichage public d'une montre dans VitrineController, génération du CRUD
-de Montre et contextualisation de l'affichage d'une montre par rapport
-à une vitrine.
+Le nouvel affichage public d'une montre a été déplacé dans VitrineController
+et son gabarit se trouve dans templates/vitrine/montreshow.html.twig.
+Un nouveau CRUD de Montre a été généré avec make:crud. Les opérations de
+liste, création, consultation, modification et suppression ont été testées.
+Le lien de consultation depuis l'inventaire utilise le nouveau CRUD.
+L'affichage contextualisé utilise les identifiants de la vitrine et de la
+montre, MapEntity et un lien de retour vers la vitrine. L'accès est refusé
+si la montre n'appartient pas à la vitrine demandée ou si la vitrine n'est
+pas publiée.
 
 Partie 11 — Contextualisation de l'accès aux données d'un membre :
-À vérifier et à réaliser selon les consignes du TP : création de
-MemberController, navigation entre le membre et son inventaire,
-contextualisation de la création des montres et adaptation des redirections.
+À réaliser selon les consignes du TP : création de MemberController,
+navigation entre le membre et son inventaire, contextualisation de la
+création des montres et adaptation des redirections.
 
 Partie 12 — Contextualisation des vitrines :
-À vérifier et à réaliser selon les consignes du TP : affichage des vitrines
-d'un membre, contextualisation de leur création, adaptation des
-redirections et filtrage des vitrines publiques.
+À réaliser selon les consignes du TP : affichage des vitrines d'un membre,
+contextualisation de leur création, adaptation des redirections et
+filtrage des vitrines publiques.
 
 Partie 13 — Association des montres aux vitrines :
 Le formulaire de Vitrine propose une sélection multiple de montres.
@@ -113,6 +118,8 @@ aux montres appartenant au membre propriétaire de la vitrine.
 
 Les restrictions d'accès et les vérifications de propriété doivent être
 testées avant de considérer ces fonctionnalités comme terminées.
+
+
 
 7. Installation et lancement
 ----------------------------

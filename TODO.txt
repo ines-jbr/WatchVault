@@ -112,23 +112,29 @@ Partie 9 — CRUD des vitrines
 
 Partie 10 — Réorganisation des contrôleurs
 ------------------------------------------
-[À faire ou à vérifier]
+[Terminé et testé]
 
 10.1 — CRUD de Montre
-- Déplacer l'affichage public d'une montre de MontreController vers
-  VitrineController.
-- Déplacer le gabarit d'affichage public vers templates/vitrine/.
-- Générer le CRUD de Montre avec make:crud.
-- Tester les opérations CRUD.
-- Adapter le lien de consultation d'une montre depuis son inventaire.
+[Terminé]
+- Déplacement de l'affichage public d'une montre vers VitrineController.
+- Déplacement du gabarit d'affichage public vers
+  templates/vitrine/montreshow.html.twig.
+- Suppression de l'ancien MontreController.
+- Génération du nouveau CRUD de Montre avec make:crud.
+- Création de MontreType et des gabarits CRUD.
+- Test de la liste, de la création, de la consultation,
+  de la modification et de la suppression d'une montre.
+- Mise à jour du lien de consultation d'une montre depuis son inventaire.
 
 10.2 — Affichage contextualisé d'une montre
-- Ajouter l'identifiant de la vitrine et celui de la montre dans la route.
-- Utiliser MapEntity pour charger les bonnes entités.
-- Transmettre la vitrine et la montre au gabarit.
-- Ajouter un lien de retour vers la vitrine.
-- Vérifier que la montre appartient à la vitrine demandée.
-- Vérifier que la vitrine est publique avant d'autoriser l'accès public.
+[Terminé et testé]
+- Ajout des identifiants de la vitrine et de la montre dans la route.
+- Utilisation de MapEntity pour charger les deux entités.
+- Transmission de la vitrine et de la montre au gabarit.
+- Ajout d'un lien de retour vers la vitrine.
+- Vérification que la montre appartient à la vitrine demandée.
+- Vérification que la vitrine est publiée avant d'autoriser l'accès public.
+- Vérification des liens entre la vitrine et les montres.
 
 
 Partie 11 — Contextualisation de l'accès aux membres

@@ -5,8 +5,6 @@
 {% block body %}
     <h1>Montre</h1>
 
-    {% dump montre %}
-
     <table class="table">
         <tbody>
             <tr>
@@ -24,8 +22,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('watch_collection_show', {'id': montre.watchCollection.id}) }}">
-        back to collection
-    </a> 
-
+    <a href="{{ path('app_vitrine_show', {'id': vitrine.id}) }}">
+        Retour à la vitrine
+    </a>
 {% endblock %}

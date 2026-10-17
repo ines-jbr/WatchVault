@@ -1,0 +1,39 @@
+{{ form_start(form) }}
+
+    {{ form_errors(form) }}
+
+    <div class="mb-3">
+        {{ form_label(form.description, null, {'label_attr': {'class': 'form-label fw-semibold'}}) }}
+        {{ form_widget(form.description) }}
+        {{ form_errors(form.description) }}
+    </div>
+
+    <div class="form-check mb-3">
+        {{ form_widget(form.publiee) }}
+        {{ form_label(form.publiee, null, {'label_attr': {'class': 'form-check-label'}}) }}
+        {{ form_errors(form.publiee) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.montres, null, {'label_attr': {'class': 'form-label fw-semibold'}}) }}
+        {{ form_widget(form.montres) }}
+        {{ form_help(form.montres) }}
+        {{ form_errors(form.montres) }}
+    </div>
+
+    <div class="mb-4">
+        {{ form_label(form.member, null, {'label_attr': {'class': 'form-label fw-semibold'}}) }}
+        {{ form_widget(form.member) }}
+        {{ form_errors(form.member) }}
+    </div>
+
+    <button class="btn btn-primary">
+        <i class="bi bi-check-circle"></i>
+        {{ button_label|default('Enregistrer') }}
+    </button>
+
+    <a href="{{ path('app_vitrine_index') }}" class="btn btn-outline-secondary ms-2">
+        Annuler
+    </a>
+
+{{ form_end(form) }}

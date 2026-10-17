@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\VitrineRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: VitrineRepository::class)]
@@ -18,6 +20,21 @@ class Vitrine
 
     #[ORM\Column]
     private ?bool $publiee = null;
+
+    /**
+     * @var Collection<int, Montre>
+     */
+    #[ORM\ManyToMany(targetEntity: Montre::class, inversedBy: 'vitrines')]
+    private Collection $montres;
+
+    #[ORM\ManyToOne(inversedBy: 'vitrines')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Member $member = null;
+
+    public function __construct()
+    {
+        $this->montres = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -44,6 +61,42 @@ class Vitrine
     public function setPubliee(bool $publiee): static
     {
         $this->publiee = $publiee;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Montre>
+     */
+    public function getMontres(): Collection
+    {
+        return $this->montres;
+    }
+
+    public function addMontre(Montre $montre): static
+    {
+        if (!$this->montres->contains($montre)) {
+            $this->montres->add($montre);
+        }
+
+        return $this;
+    }
+
+    public function removeMontre(Montre $montre): static
+    {
+        $this->montres->removeElement($montre);
+
+        return $this;
+    }
+
+    public function getMember(): ?Member
+    {
+        return $this->member;
+    }
+
+    public function setMember(?Member $member): static
+    {
+        $this->member = $member;
 
         return $this;
     }

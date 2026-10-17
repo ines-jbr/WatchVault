@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Vitrine;
 use App\Entity\WatchCollection;
 use App\Entity\Montre;
 use App\Entity\Member;
@@ -46,6 +47,8 @@ class AppFixtures extends Fixture
         }
 
         // Création des montres
+        $montresCreees = [];
+
         foreach (self::montresGenerator() as [$collectionReference, $nom, $description]) {
             $montre = new Montre();
             $montre->setNom($nom);
@@ -55,6 +58,7 @@ class AppFixtures extends Fixture
             $montre->setWatchCollection($collection);
 
             $manager->persist($montre);
+            $montresCreees[$nom] = $montre;
         }
 
         // Création d'un membre
@@ -71,6 +75,19 @@ class AppFixtures extends Fixture
 
         $manager->persist($member);
 
+        $manager->flush();
+
+        // Création d'une vitrine
+        $vitrine = new Vitrine();
+        $vitrine->setDescription('Les montres incontournables de WatchVault');
+        $vitrine->setPubliee(true);
+        $vitrine->setMember($member);
+
+        // Association de montres à la vitrine
+        $vitrine->addMontre($montresCreees['Rolex Submariner']);
+        $vitrine->addMontre($montresCreees['Omega Speedmaster']);
+
+        $manager->persist($vitrine);
         $manager->flush();
     }
 }

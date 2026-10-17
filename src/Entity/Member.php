@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\MemberRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -34,6 +36,17 @@ class Member implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?WatchCollection $watchCollection = null;
+
+    /**
+     * @var Collection<int, Vitrine>
+     */
+    #[ORM\OneToMany(targetEntity: Vitrine::class, mappedBy: 'member')]
+    private Collection $vitrines;
+
+    public function __construct()
+    {
+        $this->vitrines = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -124,6 +137,36 @@ class Member implements UserInterface, PasswordAuthenticatedUserInterface
     public function setWatchCollection(WatchCollection $watchCollection): static
     {
         $this->watchCollection = $watchCollection;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Vitrine>
+     */
+    public function getVitrines(): Collection
+    {
+        return $this->vitrines;
+    }
+
+    public function addVitrine(Vitrine $vitrine): static
+    {
+        if (!$this->vitrines->contains($vitrine)) {
+            $this->vitrines->add($vitrine);
+            $vitrine->setMember($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVitrine(Vitrine $vitrine): static
+    {
+        if ($this->vitrines->removeElement($vitrine)) {
+            // set the owning side to null (unless already changed)
+            if ($vitrine->getMember() === $this) {
+                $vitrine->setMember(null);
+            }
+        }
 
         return $this;
     }

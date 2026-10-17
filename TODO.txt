@@ -1,0 +1,223 @@
+WatchVault — Suivi du projet CSC4101
+====================================
+
+Légende :
+[Terminé]       : réalisé et vérifié
+[Partiel]       : réalisé en partie
+[À vérifier]    : état à confirmer
+[À faire]       : pas encore réalisé ou vérifié
+
+
+Étape 0 — Mise en place du projet
+---------------------------------
+[Terminé]
+- Création du projet Symfony WatchVault.
+- Configuration de Git et du dépôt GitHub.
+- Configuration de l'environnement Symfony.
+
+
+Étape 1 — Entités et base de données
+------------------------------------
+[Terminé]
+- Création de WatchCollection.
+- Création de Montre.
+- Association OneToMany / ManyToOne entre WatchCollection et Montre.
+- Configuration de SQLite.
+- Création et exécution des migrations.
+
+
+Étape 2 — Membres
+-----------------
+[Terminé]
+- Création de Member.
+- Identification par adresse e-mail.
+- Gestion du mot de passe avec Symfony.
+- Association OneToOne entre Member et WatchCollection.
+
+
+Étape 3 — Fixtures initiales
+----------------------------
+[Terminé pour les données initiales]
+- Création des fixtures Doctrine pour les collections et les montres.
+- Ajout d'un membre de test.
+
+[À vérifier]
+- Vérifier l'exécution des fixtures après l'ajout de Vitrine.
+- Vérifier la création d'une vitrine associée à deux montres.
+- Éviter les doublons et la suppression involontaire des données existantes.
+
+
+Étape 4 — Pages de consultation
+-------------------------------
+[Terminé selon les tests précédents]
+- Consultation de la liste des collections.
+- Consultation d'une collection.
+- Consultation d'une montre.
+- Navigation entre les pages de consultation.
+
+
+Étape 5 — Gabarits Twig
+-----------------------
+[Terminé selon les tests précédents]
+- Utilisation de base.html.twig.
+- Création des gabarits de consultation.
+- Affichage des collections et des montres avec Twig.
+
+
+Étape 6 — Thème Bootstrap et vitrines
+-------------------------------------
+[Terminé]
+- Intégration du thème Bootstrap Shop Homepage.
+- Configuration des ressources CSS et JavaScript.
+- Installation et configuration de bootstrap-menu-bundle.
+- Création du menu de navigation vers les collections.
+- Création de l'entité Vitrine.
+- Ajout des propriétés description et publiee.
+- Association OneToMany entre Member et Vitrine.
+- Association ManyToMany entre Vitrine et Montre.
+- Création et exécution des migrations correspondantes.
+- Validation du mapping et du schéma Doctrine.
+
+
+Partie 9 — CRUD des vitrines
+----------------------------
+[Partiel]
+
+9.1 — Génération du CRUD
+[Terminé]
+- Génération de VitrineController avec make:crud.
+- Génération de VitrineType et des gabarits CRUD.
+- Vérification des routes de liste, création, détail, modification
+  et suppression.
+- Test des formulaires de création et de modification.
+
+9.2 — Affichage des montres associées
+[Terminé pour l'affichage]
+- Affichage des montres d'une vitrine dans sa page de détail.
+- Vérification de l'association avec Omega Speedmaster.
+- Ajout de fixtures pour associer des montres à une vitrine.
+
+[À vérifier]
+- Exécuter les fixtures dans un environnement de test sûr.
+- Vérifier que la vitrine créée par les fixtures est associée à
+  Rolex Submariner et Omega Speedmaster.
+
+9.3 — Personnalisation Bootstrap
+[Terminé selon les tests précédents]
+- Personnalisation de la liste des vitrines.
+- Personnalisation de la page de détail.
+- Personnalisation des pages de création et de modification.
+- Personnalisation du formulaire partagé.
+
+
+Partie 10 — Réorganisation des contrôleurs
+------------------------------------------
+[À faire ou à vérifier]
+
+10.1 — CRUD de Montre
+- Déplacer l'affichage public d'une montre de MontreController vers
+  VitrineController.
+- Déplacer le gabarit d'affichage public vers templates/vitrine/.
+- Générer le CRUD de Montre avec make:crud.
+- Tester les opérations CRUD.
+- Adapter le lien de consultation d'une montre depuis son inventaire.
+
+10.2 — Affichage contextualisé d'une montre
+- Ajouter l'identifiant de la vitrine et celui de la montre dans la route.
+- Utiliser MapEntity pour charger les bonnes entités.
+- Transmettre la vitrine et la montre au gabarit.
+- Ajouter un lien de retour vers la vitrine.
+- Vérifier que la montre appartient à la vitrine demandée.
+- Vérifier que la vitrine est publique avant d'autoriser l'accès public.
+
+
+Partie 11 — Contextualisation de l'accès aux membres
+----------------------------------------------------
+[À faire ou à vérifier]
+
+11.1 — MemberController
+- Créer MemberController avec make:controller si nécessaire.
+- Ajouter index() et show().
+- Créer les gabarits de liste et de détail des membres.
+- Afficher un lien vers l'inventaire du membre.
+- Modifier le lien de retour de l'inventaire pour revenir vers le membre.
+
+11.2 — Création contextualisée d'une montre
+- Adapter la route de création pour recevoir l'identifiant de l'inventaire.
+- Associer automatiquement la nouvelle montre au bon inventaire.
+- Déplacer le lien de création vers la page de l'inventaire.
+- Empêcher la modification du lien vers l'inventaire dans le formulaire.
+- Adapter les redirections après modification et suppression.
+
+
+Partie 12 — Contextualisation des vitrines
+------------------------------------------
+[À faire ou à vérifier]
+
+12.1 — Liste des vitrines d'un membre
+- Afficher les vitrines du membre dans MemberController::show().
+
+12.2 — Création contextualisée d'une vitrine
+- Adapter la route de création pour recevoir l'identifiant du membre.
+- Associer automatiquement la vitrine au membre concerné.
+- Déplacer le lien de création vers la fiche du membre.
+- Supprimer le lien de création non contextualisé de la liste publique.
+
+12.3 — Redirections
+- Adapter les redirections après modification et suppression d'une vitrine.
+
+12.4 — Vitrines publiques
+- Charger uniquement les vitrines publiées dans la liste publique.
+- Vérifier le comportement des vitrines privées.
+
+
+Partie 13 — Association des montres aux vitrines
+-----------------------------------------------
+[Partiel]
+
+13.1 — Champ de sélection multiple
+- Ajouter le champ de sélection multiple des montres dans VitrineType.
+- Vérifier l'option by_reference => false.
+- Évaluer l'utilisation de expanded => true pour afficher des cases à cocher.
+- Tester la création et la modification d'une vitrine.
+
+13.2 — Limitation aux montres du même membre
+- Adapter le chargement des montres proposées dans VitrineType.
+- Utiliser query_builder pour ne proposer que les montres du propriétaire.
+- Vérifier que les montres d'un autre membre ne peuvent pas être associées.
+- Tester la création et la modification d'une vitrine.
+
+
+Vérifications techniques
+------------------------
+[Terminé]
+- Validation de la syntaxe de AppFixtures.php.
+- lint:container exécuté avec succès.
+- doctrine:schema:validate exécuté avec succès.
+- Routes du CRUD de Vitrine vérifiées.
+- git diff --check exécuté sans erreur.
+
+[À faire]
+- Terminer et vérifier les parties 10 à 13.
+- Tester les fixtures dans un environnement adapté.
+- Vérifier l'ensemble des fonctionnalités demandées par le TP.
+- Effectuer une dernière vérification de Git.
+
+
+Documentation et Git
+--------------------
+- README.md : documentation détaillée du projet.
+- README.txt : présentation du projet, à jour.
+- TODO.md : suivi complémentaire, à vérifier.
+- TODO.txt : suivi des parties 9 à 13, à jour.
+- Dépôt GitHub : https://github.com/ines-jbr/WatchVault
+
+Commit précédent :
+4c17fd0 — Documentation: mettre à jour le suivi et ajouter Vitrine
+
+[À faire]
+- Vérifier les modifications de README.txt et TODO.txt.
+- Vérifier README.md et TODO.md avant de les modifier éventuellement.
+- Ajouter les fichiers nécessaires au commit.
+- Créer un commit descriptif.
+- Pousser les modifications vers origin/master.

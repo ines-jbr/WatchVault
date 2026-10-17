@@ -19,12 +19,37 @@
             </tbody>
         </table>
 
+        <h2>Mon inventaire</h2>
+
         <a
             href="{{ path('watch_collection_show', {'id': member.watchCollection.id}) }}"
-            class="btn btn-primary"
+            class="btn btn-primary mb-4"
         >
-            Mon inventaire
+            Consulter mon inventaire
         </a>
+
+        <h2>Mes vitrines</h2>
+
+        <a
+            href="{{ path('app_vitrine_new', {'id': member.id}) }}"
+            class="btn btn-success mb-3"
+        >
+            Créer une vitrine
+        </a>
+
+        <ul class="list-group mb-4">
+            {% for vitrine in member.vitrines %}
+                <li class="list-group-item">
+                    <a href="{{ path('app_vitrine_show', {'id': vitrine.id}) }}">
+                        {{ vitrine.description }}
+                    </a>
+                </li>
+            {% else %}
+                <li class="list-group-item">
+                    Aucune vitrine pour ce membre.
+                </li>
+            {% endfor %}
+        </ul>
 
         <a href="{{ path('app_member_index') }}" class="btn btn-secondary">
             Retour à la liste des membres

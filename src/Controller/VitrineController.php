@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-
+use App\Entity\Member;
 use App\Entity\Montre;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use App\Entity\Vitrine;
@@ -21,14 +21,18 @@ final class VitrineController extends AbstractController
     public function index(VitrineRepository $vitrineRepository): Response
     {
         return $this->render('vitrine/index.html.twig', [
-            'vitrines' => $vitrineRepository->findAll(),
+            'vitrines' => $vitrineRepository->findBy(['publiee' => true]),
         ]);
     }
 
-    #[Route('/new', name: 'app_vitrine_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
+    #[Route('/new/{id}', name: 'app_vitrine_new', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
+    public function new(
+        Member $member,
+        Request $request,
+        EntityManagerInterface $entityManager
+    ): Response {
         $vitrine = new Vitrine();
+        $vitrine->setMember($member);
         $form = $this->createForm(VitrineType::class, $vitrine);
         $form->handleRequest($request);
 
@@ -62,7 +66,11 @@ final class VitrineController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_vitrine_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute(
+                'app_member_show',
+                ['id' => $vitrine->getMember()->getId()],
+                Response::HTTP_SEE_OTHER
+            );
         }
 
         return $this->render('vitrine/edit.html.twig', [
@@ -74,12 +82,19 @@ final class VitrineController extends AbstractController
     #[Route('/{id}', name: 'app_vitrine_delete', methods: ['POST'])]
     public function delete(Request $request, Vitrine $vitrine, EntityManagerInterface $entityManager): Response
     {
+        // On récupère le membre avant de supprimer la vitrine.
+        $memberId = $vitrine->getMember()->getId();
+
         if ($this->isCsrfTokenValid('delete'.$vitrine->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($vitrine);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_vitrine_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute(
+            'app_member_show',
+            ['id' => $memberId],
+            Response::HTTP_SEE_OTHER
+        );
     }
     #[Route(
         '/{vitrine_id}/montre/{montre_id}',

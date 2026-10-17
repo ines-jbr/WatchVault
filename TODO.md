@@ -214,15 +214,61 @@
 
 ### Travaux restant à réaliser
 
-* [ ] Associer `Member` à `Vitrine` avec une relation `OneToMany`
-* [ ] Associer `Vitrine` à `Montre` avec une relation `ManyToMany`
-* [ ] Mettre en place la gestion des vitrines
-* [ ] Permettre de présenter publiquement une sélection de montres
-* [ ] Tester le fonctionnement des vitrines
+* [x] Associer `Member` à `Vitrine` avec une relation `OneToMany`
+* [x] Associer `Vitrine` à `Montre` avec une relation `ManyToMany`
+* [x] Mettre en place la gestion des vitrines
+* [x] Permettre de présenter publiquement une sélection de montres
+* [x] Tester le fonctionnement des vitrines
 
-**État : Partiellement terminée**
+**État :terminée**
 
 ---
+---
+
+## Étape 9 — CRUD des vitrines
+
+* [x] Créer les pages de création, consultation, modification et suppression des vitrines
+* [x] Afficher les montres associées aux vitrines
+* [x] Personnaliser les gabarits Twig avec Bootstrap
+* [x] Tester les fonctionnalités CRUD
+
+**État : Terminée**
+
+---
+
+## Étape 10 — Réorganisation et contextualisation des contrôleurs
+
+* [x] Réorganiser la consultation des montres dans le contexte des vitrines
+* [x] Créer le CRUD des montres
+* [x] Vérifier qu'une montre appartient à la vitrine consultée
+
+**État : Terminée**
+
+---
+
+## Étape 11 — Pages des membres et CRUD contextualisé des montres
+
+* [x] Créer les pages de consultation des membres
+* [x] Afficher la collection du membre
+* [x] Contextualiser la création des montres dans la collection concernée
+* [x] Adapter les redirections après modification et suppression
+
+**État : Terminée**
+
+---
+
+## Étape 12 — CRUD contextualisé des vitrines
+
+* [x] Afficher les vitrines du membre sur sa page
+* [x] Créer une vitrine depuis la page du membre
+* [x] Associer automatiquement la vitrine au membre concerné
+* [x] Supprimer les liens de création depuis la liste générale
+* [x] Rediriger vers la page du créateur après modification ou suppression
+* [x] Afficher uniquement les vitrines publiées dans la liste générale
+* [x] Conserver les vitrines non publiées sur la page de leur créateur
+* [x] Tester la création, la modification, la suppression et le filtrage des vitrines
+
+**État : Terminée**
 
 ## Étape 7 — Gestion des accès
 
@@ -250,4 +296,4 @@
 * [x] Documenter les étapes réalisées dans `README.md`
 * [x] Mettre à jour `TODO.md` après chaque étape importante
 * [x] Effectuer un commit Git après chaque étape importante
-* [ ] Vérifier l'historique Git du projet
+* [x] Vérifier l'historique Git du projet

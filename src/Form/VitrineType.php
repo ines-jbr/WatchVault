@@ -2,7 +2,6 @@
 
 namespace App\Form;
 
-use App\Entity\Member;
 use App\Entity\Montre;
 use App\Entity\Vitrine;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -45,14 +44,6 @@ class VitrineType extends AbstractType
                     'size' => 5,
                 ],
                 'help' => 'Maintenez Ctrl (ou Cmd sur Mac) pour sélectionner plusieurs montres.',
-            ])
-            ->add('member', EntityType::class, [
-                'class' => Member::class,
-                'choice_label' => 'email',
-                'label' => 'Propriétaire',
-                'attr' => [
-                    'class' => 'form-select',
-                ],
             ])
         ;
     }

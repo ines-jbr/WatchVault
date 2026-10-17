@@ -11,7 +11,7 @@
                 <th>Id</th>
                 <th>Nom</th>
                 <th>Description</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -21,17 +21,15 @@
                 <td>{{ montre.nom }}</td>
                 <td>{{ montre.description }}</td>
                 <td>
-                    <a href="{{ path('app_montre_show', {'id': montre.id}) }}">show</a>
-                    <a href="{{ path('app_montre_edit', {'id': montre.id}) }}">edit</a>
+                    <a href="{{ path('app_montre_show', {'id': montre.id}) }}">Consulter</a>
+                    <a href="{{ path('app_montre_edit', {'id': montre.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="4">Aucune montre enregistrée.</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_montre_new') }}">Create new</a>
 {% endblock %}

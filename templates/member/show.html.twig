@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fiche du membre{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Fiche du membre</h1>
+
+        <table class="table table-striped">
+            <tbody>
+                <tr>
+                    <th>Identifiant</th>
+                    <td>{{ member.id }}</td>
+                </tr>
+                <tr>
+                    <th>Adresse e-mail</th>
+                    <td>{{ member.email }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a
+            href="{{ path('watch_collection_show', {'id': member.watchCollection.id}) }}"
+            class="btn btn-primary"
+        >
+            Mon inventaire
+        </a>
+
+        <a href="{{ path('app_member_index') }}" class="btn btn-secondary">
+            Retour à la liste des membres
+        </a>
+    </div>
+{% endblock %}

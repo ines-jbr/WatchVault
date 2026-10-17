@@ -33,7 +33,7 @@ class Member implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'member', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?WatchCollection $watchCollection = null;
 
@@ -81,7 +81,6 @@ class Member implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
@@ -113,13 +112,13 @@ class Member implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * Ensure the session doesn't contain actual password hashes by CRC32C-hashing them, as supported since Symfony 7.3.
+     * Ensure the session doesn't contain actual password hashes by CRC32C-hashing them.
      */
     public function __serialize(): array
     {
         $data = (array) $this;
         $data["\0" . self::class . "\0password"] = hash('crc32c', $this->password);
-        
+
         return $data;
     }
 
@@ -162,7 +161,6 @@ class Member implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeVitrine(Vitrine $vitrine): static
     {
         if ($this->vitrines->removeElement($vitrine)) {
-            // set the owning side to null (unless already changed)
             if ($vitrine->getMember() === $this) {
                 $vitrine->setMember(null);
             }

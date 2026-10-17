@@ -5,8 +5,6 @@
 {% block body %}
     <h1>Collection</h1>
 
-    {% dump watchCollection %}
-
     <table class="table">
         <tbody>
             <tr>
@@ -22,6 +20,11 @@
 
     <h2>Montres</h2>
 
+    <a href="{{ path('app_montre_new', {'id': watchCollection.id}) }}"
+       class="btn btn-primary mb-3">
+        Ajouter une montre
+    </a>
+
     <ul>
         {% for montre in watchCollection.montres %}
             <li>
@@ -29,9 +32,23 @@
                     {{ montre.nom }}
                 </a>
             </li>
+        {% else %}
+            <li>Aucune montre dans cette collection.</li>
         {% endfor %}
     </ul>
 
-    <a href="{{ path('watch_collection_list') }}">back to list</a>
+    {% if watchCollection.member is defined and watchCollection.member is not null %}
+        <a href="{{ path('app_member_show', {'id': watchCollection.member.id}) }}"
+           class="btn btn-secondary">
+            Retour à la fiche du membre
+        </a>
+    {% else %}
+        <p class="text-muted">
+            Aucun membre n'est associé à cette collection.
+        </p>
+    {% endif %}
 
+    <a href="{{ path('watch_collection_list') }}" class="btn btn-secondary">
+        Retour à la liste des collections
+    </a>
 {% endblock %}

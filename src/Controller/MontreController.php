@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Montre;
+use App\Entity\WatchCollection;
 use App\Form\MontreType;
 use App\Repository\MontreRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -22,10 +23,15 @@ final class MontreController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_montre_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
+    #[Route('/new/{id}', name: 'app_montre_new', methods: ['GET', 'POST'])]
+    public function new(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        WatchCollection $watchCollection
+    ): Response {
         $montre = new Montre();
+        $montre->setWatchCollection($watchCollection);
+
         $form = $this->createForm(MontreType::class, $montre);
         $form->handleRequest($request);
 
@@ -33,7 +39,11 @@ final class MontreController extends AbstractController
             $entityManager->persist($montre);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_montre_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute(
+                'watch_collection_show',
+                ['id' => $watchCollection->getId()],
+                Response::HTTP_SEE_OTHER
+            );
         }
 
         return $this->render('montre/new.html.twig', [
@@ -51,15 +61,22 @@ final class MontreController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_montre_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Montre $montre, EntityManagerInterface $entityManager): Response
-    {
+    public function edit(
+        Request $request,
+        Montre $montre,
+        EntityManagerInterface $entityManager
+    ): Response {
         $form = $this->createForm(MontreType::class, $montre);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_montre_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute(
+                'watch_collection_show',
+                ['id' => $montre->getWatchCollection()->getId()],
+                Response::HTTP_SEE_OTHER
+            );
         }
 
         return $this->render('montre/edit.html.twig', [
@@ -69,13 +86,26 @@ final class MontreController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_montre_delete', methods: ['POST'])]
-    public function delete(Request $request, Montre $montre, EntityManagerInterface $entityManager): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$montre->getId(), $request->getPayload()->getString('_token'))) {
+    public function delete(
+        Request $request,
+        Montre $montre,
+        EntityManagerInterface $entityManager
+    ): Response {
+        // Récupérer l'identifiant avant de supprimer la montre.
+        $watchCollectionId = $montre->getWatchCollection()->getId();
+
+        if ($this->isCsrfTokenValid(
+            'delete' . $montre->getId(),
+            $request->getPayload()->getString('_token')
+        )) {
             $entityManager->remove($montre);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_montre_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute(
+            'watch_collection_show',
+            ['id' => $watchCollectionId],
+            Response::HTTP_SEE_OTHER
+        );
     }
 }

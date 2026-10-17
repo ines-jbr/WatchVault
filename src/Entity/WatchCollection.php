@@ -18,6 +18,9 @@ class WatchCollection
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
+    #[ORM\OneToOne(mappedBy: 'watchCollection', targetEntity: Member::class)]
+    private ?Member $member = null;
+
     /**
      * @var Collection<int, Montre>
      */
@@ -46,6 +49,11 @@ class WatchCollection
         return $this;
     }
 
+    public function getMember(): ?Member
+    {
+        return $this->member;
+    }
+
     /**
      * @return Collection<int, Montre>
      */
@@ -67,7 +75,6 @@ class WatchCollection
     public function removeMontre(Montre $montre): static
     {
         if ($this->montres->removeElement($montre)) {
-            // set the owning side to null (unless already changed)
             if ($montre->getWatchCollection() === $this) {
                 $montre->setWatchCollection(null);
             }
@@ -76,4 +83,3 @@ class WatchCollection
         return $this;
     }
 }
-

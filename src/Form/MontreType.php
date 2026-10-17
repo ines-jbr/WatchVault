@@ -20,6 +20,7 @@ class MontreType extends AbstractType
             ->add('watchCollection', EntityType::class, [
                 'class' => WatchCollection::class,
                 'choice_label' => 'id',
+                'disabled' => true,
             ])
             ->add('vitrines', EntityType::class, [
                 'class' => Vitrine::class,

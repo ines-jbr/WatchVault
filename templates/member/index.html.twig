@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des membres{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Liste des membres</h1>
+
+        {% if members is empty %}
+            <p>Aucun membre enregistré.</p>
+        {% else %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Identifiant</th>
+                        <th>Adresse e-mail</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for member in members %}
+                        <tr>
+                            <td>{{ member.id }}</td>
+                            <td>{{ member.email }}</td>
+                            <td>
+                                <a
+                                    href="{{ path('app_member_show', {'id': member.id}) }}"
+                                    class="btn btn-primary btn-sm"
+                                >
+                                    Consulter
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+{% endblock %}

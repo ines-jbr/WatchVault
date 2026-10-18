@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Form;
-
+use App\Repository\MontreRepository;
 use App\Entity\Montre;
 use App\Entity\Vitrine;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -38,13 +38,25 @@ class VitrineType extends AbstractType
                 'choice_label' => 'nom',
                 'label' => 'Montres à afficher',
                 'multiple' => true,
+                'expanded' => true,
+                'by_reference' => false,
                 'required' => false,
-                'attr' => [
-                    'class' => 'form-select',
-                    'size' => 5,
-                ],
-                'help' => 'Maintenez Ctrl (ou Cmd sur Mac) pour sélectionner plusieurs montres.',
-            ])
+                'query_builder' => function (MontreRepository $repository) use ($options) {
+                    $vitrine = $options['data'] ?? null;
+                    $member = $vitrine?->getMember();
+                    $collection = $member?->getWatchCollection();
+
+                    $queryBuilder = $repository->createQueryBuilder('m');
+
+                    if ($collection === null) {
+                        return $queryBuilder->andWhere('1 = 0');
+                    }
+
+        return $queryBuilder
+            ->andWhere('m.watchCollection = :collection')
+            ->setParameter('collection', $collection);
+    },
+])
         ;
     }
 

@@ -270,6 +270,24 @@
 
 **État : Terminée**
 
+## Étape 13 — Sélection des montres dans une vitrine
+
+* [x] Adapter `VitrineType` pour sélectionner les montres
+* [x] Afficher les montres sous forme de cases à cocher
+* [x] Autoriser la sélection multiple avec `multiple => true`
+* [x] Afficher les choix avec `expanded => true`
+* [x] Configurer `by_reference => false`
+* [x] Filtrer les montres selon la collection du créateur de la vitrine
+* [x] Vérifier les méthodes d'ajout et de suppression des montres dans `Vitrine`
+* [x] Vérifier la syntaxe PHP
+* [x] Tester la création d'une vitrine avec des montres sélectionnées
+* [x] Vérifier l'affichage des montres sélectionnées
+* [x] Tester le filtrage avec un autre membre
+
+**État : Terminée**
+
+---
+
 ## Étape 7 — Gestion des accès
 
 * [ ] Gérer les accès privés

@@ -146,3 +146,17 @@
 - Ajouter des tests automatisés aux fonctionnalités principales.
 - Améliorer la gestion des messages flash après les opérations CRUD.
 - Mettre en place un espace d'administration.
+
+### Étape 13 — Sélection des montres dans une vitrine
+
+- Adaptation du formulaire `VitrineType` pour sélectionner les montres à afficher.
+- Affichage des montres sous forme de cases à cocher.
+- Autorisation de sélectionner plusieurs montres avec `multiple => true` et `expanded => true`.
+- Utilisation de `by_reference => false` pour gérer correctement les associations entre les vitrines et les montres.
+- Filtrage des montres proposées selon la collection du créateur de la vitrine.
+- Vérification des méthodes `getMontres()`, `addMontre()` et `removeMontre()` de l'entité `Vitrine`.
+- Vérification de la syntaxe PHP.
+- Test de création d'une vitrine avec des montres sélectionnées.
+- Vérification de l'affichage des montres sélectionnées et du filtrage pour un autre membre.
+
+**État : Terminée**

@@ -18,3 +18,7 @@
 /public/assets/
 /assets/vendor/
 ###< symfony/asset-mapper ###
+
+###> WatchVault - Images téléversées ###
+/public/images/montres/
+###< WatchVault - Images téléversées ###

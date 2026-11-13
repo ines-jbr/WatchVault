@@ -288,6 +288,52 @@
 
 ---
 
+---
+
+## Étape 14 — Gestion du téléversement et de l'affichage des images
+
+### Installation et configuration
+
+* [x] Installer `vich/uploader-bundle`
+* [x] Configurer le mapping `montres` dans `vich_uploader.yaml`
+* [x] Configurer le stockage dans `public/images/montres/`
+
+### Entité et base de données
+
+* [x] Ajouter `imageFile`, `imageName`, `imageSize` et `updatedAt` à `Montre`
+* [x] Configurer les attributs `Vich\Uploadable` et `Vich\UploadableField`
+* [x] Créer et exécuter la migration Doctrine
+* [x] Vérifier la syntaxe PHP et la configuration Symfony
+
+### Formulaire et téléversement
+
+* [x] Ajouter `VichImageType` dans `MontreType`
+* [x] Permettre le téléversement d'une image lors de la création d'une montre
+* [x] Vérifier l'enregistrement de l'image dans `public/images/montres/`
+
+### Affichage des images
+
+* [x] Afficher la photo dans `montre/show.html.twig`
+* [x] Afficher les miniatures dans `montre/index.html.twig`
+* [x] Afficher les photos des montres dans `vitrine/show.html.twig`
+* [x] Afficher la photo dans `vitrine/montreshow.html.twig`
+* [x] Tester l'affichage des images dans les différentes pages
+
+### DataFixtures
+
+* [x] Ajouter quatre images dans `src/DataFixtures/images/`
+* [x] Adapter `AppFixtures.php` pour associer les images aux montres
+* [x] Charger les fixtures avec Doctrine
+* [x] Vérifier les noms des images enregistrés dans SQLite
+
+### Documentation et Git
+
+* [x] Configurer `.gitignore` pour exclure les images téléversées
+* [x] Documenter l'étape 14 dans `README.md`
+* [x] Mettre à jour `TODO.md`
+
+**État : Terminée**
+
 ## Étape 7 — Gestion des accès
 
 * [ ] Gérer les accès privés

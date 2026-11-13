@@ -1,30 +1,69 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Montre{% endblock %}
+{% block title %}Détails de la montre{% endblock %}
 
 {% block body %}
-    <h1>Montre</h1>
+    <div class="container mt-4">
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ montre.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ montre.nom }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ montre.description }}</td>
-            </tr>
-        </tbody>
-    </table>
+        <h1 class="mb-4">Détails de la montre</h1>
 
-    <a href="{{ path('app_montre_index') }}">back to list</a>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ montre.id }}</td>
+                </tr>
 
-    <a href="{{ path('app_montre_edit', {'id': montre.id}) }}">edit</a>
+                <tr>
+                    <th>Nom</th>
+                    <td>{{ montre.nom }}</td>
+                </tr>
 
-    {{ include('montre/_delete_form.html.twig') }}
+                <tr>
+                    <th>Description</th>
+                    <td>{{ montre.description }}</td>
+                </tr>
+
+                <tr>
+                    <th>Collection</th>
+                    <td>
+                        {% if montre.watchCollection %}
+                            {{ montre.watchCollection.id }}
+                        {% else %}
+                            Aucune collection
+                        {% endif %}
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Photo</th>
+                    <td>
+                        {% if montre.imageName %}
+                            <img
+                                src="{{ vich_uploader_asset(montre, 'imageFile') }}"
+                                alt="Photo de {{ montre.nom }}"
+                                class="img-fluid rounded"
+                                style="max-width: 350px;"
+                            >
+                        {% else %}
+                            <p>Aucune image disponible.</p>
+                        {% endif %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a href="{{ path('app_montre_index') }}"
+           class="btn btn-secondary">
+            Retour à la liste
+        </a>
+
+        <a href="{{ path('app_montre_edit', {'id': montre.id}) }}"
+           class="btn btn-primary">
+            Modifier
+        </a>
+
+        {{ include('montre/_delete_form.html.twig') }}
+
+    </div>
 {% endblock %}

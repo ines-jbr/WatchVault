@@ -6,8 +6,11 @@ use App\Repository\MontreRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Attribute as Vich;
 
 #[ORM\Entity(repositoryClass: MontreRepository::class)]
+#[Vich\Uploadable]
 class Montre
 {
     #[ORM\Id]
@@ -20,6 +23,22 @@ class Montre
 
     #[ORM\Column(length: 255)]
     private ?string $description = null;
+
+    #[Vich\UploadableField(
+        mapping: 'montres',
+        fileNameProperty: 'imageName',
+        size: 'imageSize'
+    )]
+    private ?File $imageFile = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $imageName = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $imageSize = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'montres')]
     #[ORM\JoinColumn(nullable: false)]
@@ -65,6 +84,40 @@ class Montre
         return $this;
     }
 
+    public function setImageFile(?File $imageFile = null): void
+    {
+        $this->imageFile = $imageFile;
+
+        if ($imageFile !== null) {
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
+    }
+
+    public function setImageName(?string $imageName): void
+    {
+        $this->imageName = $imageName;
+    }
+
+    public function getImageSize(): ?int
+    {
+        return $this->imageSize;
+    }
+
+    public function setImageSize(?int $imageSize): void
+    {
+        $this->imageSize = $imageSize;
+    }
+
     public function getWatchCollection(): ?WatchCollection
     {
         return $this->watchCollection;
@@ -103,6 +156,7 @@ class Montre
 
         return $this;
     }
+
     public function __toString(): string
     {
         return $this->nom ?? '';

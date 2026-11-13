@@ -160,3 +160,23 @@
 - Vérification de l'affichage des montres sélectionnées et du filtrage pour un autre membre.
 
 **État : Terminée**
+
+### Étape 14 — Gestion du téléversement et de l'affichage des images
+
+- Installation de `vich/uploader-bundle` avec Composer.
+- Configuration du mapping `montres` dans `config/packages/vich_uploader.yaml`.
+- Configuration du stockage des images dans `public/images/montres/`.
+- Ajout des propriétés `imageFile`, `imageName`, `imageSize` et `updatedAt` à l'entité `Montre`.
+- Utilisation de `#[Vich\Uploadable]` et `#[Vich\UploadableField]`.
+- Création et exécution d'une migration Doctrine pour les nouvelles propriétés.
+- Modification de `MontreType` avec `VichImageType` pour permettre le téléversement d'une photo.
+- Affichage des images avec `vich_uploader_asset()` dans les gabarits Twig.
+- Ajout des photos dans la liste et la page de détail des montres.
+- Affichage des photos dans les vitrines et dans la consultation d'une montre depuis une vitrine.
+- Ajout de quatre images d'exemple dans `src/DataFixtures/images/`.
+- Adaptation de `AppFixtures.php` pour associer automatiquement les images aux montres.
+- Vérification de l'enregistrement des noms de fichiers dans la base de données.
+- Modification de `.gitignore` pour exclure les images téléversées tout en conservant les images des fixtures.
+- Tests du téléversement, de l'enregistrement et de l'affichage des images.
+
+**État : Terminée**

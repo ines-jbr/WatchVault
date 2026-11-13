@@ -8,14 +8,18 @@
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
                 <h1 class="fw-bold">Détail de la vitrine</h1>
-                <p class="text-muted">Consultez les informations et les montres associées.</p>
+                <p class="text-muted">
+                    Consultez les informations et les montres associées.
+                </p>
             </div>
 
-            <a href="{{ path('app_vitrine_index') }}" class="btn btn-outline-secondary">
+            <a href="{{ path('app_vitrine_index') }}"
+               class="btn btn-outline-secondary">
                 <i class="bi bi-arrow-left"></i> Retour aux vitrines
             </a>
         </div>
 
+        {# Informations générales #}
         <div class="card shadow-sm mb-4">
             <div class="card-header bg-light">
                 <h5 class="mb-0">Informations générales</h5>
@@ -27,6 +31,7 @@
 
                 <p class="mb-0">
                     <strong>Publication :</strong>
+
                     {% if vitrine.publiee %}
                         <span class="badge bg-success">Publiée</span>
                     {% else %}
@@ -45,7 +50,9 @@
             </div>
         </div>
 
+        {# Montres associées à la vitrine #}
         <div class="card shadow-sm mb-5">
+
             <div class="card-header bg-light">
                 <h5 class="mb-0">
                     <i class="bi bi-watch"></i> Montres associées
@@ -53,33 +60,81 @@
             </div>
 
             <div class="card-body">
+
                 {% if vitrine.montres is not empty %}
-                    <div class="row">
+
+                    <div class="row g-4">
+
                         {% for montre in vitrine.montres %}
-                            <div class="col-md-6 col-lg-4 mb-3">
-                                <div class="card h-100">
-                                    <div class="card-body">
+
+                            <div class="col-md-6 col-lg-4">
+
+                                <div class="card h-100 shadow-sm">
+
+                                    {# Photo de la montre #}
+                                    {% if montre.imageName %}
+
+                                        <img
+                                            src="{{ vich_uploader_asset(montre, 'imageFile') }}"
+                                            class="card-img-top"
+                                            alt="Photo de {{ montre.nom }}"
+                                            style="height: 220px; object-fit: contain; padding: 10px;"
+                                        >
+
+                                    {% else %}
+
+                                        <div class="d-flex align-items-center justify-content-center bg-light"
+                                             style="height: 220px;">
+
+                                            <span class="text-muted">
+                                                <i class="bi bi-image"></i>
+                                                Aucune image
+                                            </span>
+
+                                        </div>
+
+                                    {% endif %}
+
+                                    {# Informations de la montre #}
+                                    <div class="card-body d-flex flex-column">
+
                                         <h5 class="card-title">
-                                            <a href="{{ path('app_vitrine_montre_show', {
-                                                'vitrine_id': vitrine.id,
-                                                'montre_id': montre.id
-                                            }) }}" class="text-decoration-none">
-                                                {{ montre.nom }}
-                                            </a>
+                                            {{ montre.nom }}
                                         </h5>
+
                                         <p class="card-text text-muted">
                                             {{ montre.description }}
                                         </p>
+
+                                        <a href="{{ path('app_vitrine_montre_show', {
+                                            'vitrine_id': vitrine.id,
+                                            'montre_id': montre.id
+                                        }) }}"
+                                           class="btn btn-outline-primary mt-auto">
+
+                                            <i class="bi bi-eye"></i>
+                                            Consulter la montre
+
+                                        </a>
+
                                     </div>
+
                                 </div>
+
                             </div>
+
                         {% endfor %}
+
                     </div>
+
                 {% else %}
+
                     <p class="text-muted mb-0">
                         Aucune montre n'est associée à cette vitrine.
                     </p>
+
                 {% endif %}
+
             </div>
         </div>
 

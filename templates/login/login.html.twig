@@ -1,0 +1,113 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion - WatchVault{% endblock %}
+
+{% block body %}
+
+<div class="container mt-5 mb-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-6 col-lg-5">
+
+            <div class="card shadow">
+
+                <div class="card-header bg-dark text-white text-center">
+                    <h3 class="mb-0">Connexion à WatchVault</h3>
+                </div>
+
+                <div class="card-body p-4">
+
+                    {# Affichage des erreurs d'authentification #}
+                    {% if error %}
+                        <div class="alert alert-danger">
+                            {{ error.messageKey|trans(error.messageData, 'security') }}
+                        </div>
+                    {% endif %}
+
+                    {# Si un membre est déjà connecté #}
+                    {% if app.user %}
+
+                        <div class="alert alert-info">
+                            Vous êtes connecté en tant que
+                            <strong>{{ app.user.userIdentifier }}</strong>.
+                        </div>
+
+                        <div class="text-center">
+                            <a href="{{ path('app_logout') }}"
+                               class="btn btn-outline-danger">
+                                Se déconnecter
+                            </a>
+                        </div>
+
+                    {% else %}
+
+                        <form method="post" action="{{ path('app_login') }}">
+
+                            {# Adresse e-mail #}
+                            <div class="mb-3">
+                                <label for="username" class="form-label">
+                                    Adresse e-mail
+                                </label>
+
+                                <input
+                                    type="email"
+                                    name="_username"
+                                    id="username"
+                                    value="{{ last_username }}"
+                                    class="form-control"
+                                    placeholder="exemple@email.com"
+                                    autocomplete="email"
+                                    required
+                                    autofocus
+                                >
+                            </div>
+
+                            {# Mot de passe #}
+                            <div class="mb-3">
+                                <label for="password" class="form-label">
+                                    Mot de passe
+                                </label>
+
+                                <input
+                                    type="password"
+                                    name="_password"
+                                    id="password"
+                                    class="form-control"
+                                    placeholder="Votre mot de passe"
+                                    autocomplete="current-password"
+                                    required
+                                >
+                            </div>
+
+                            {# Protection CSRF #}
+                            <input
+                                type="hidden"
+                                name="_csrf_token"
+                                data-controller="csrf-protection"
+                                value="{{ csrf_token('authenticate') }}"
+                            >
+
+                            {# Bouton de connexion #}
+                            <div class="d-grid mt-4">
+                                <button type="submit"
+                                        class="btn btn-primary btn-lg">
+                                    Se connecter
+                                </button>
+                            </div>
+
+                        </form>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

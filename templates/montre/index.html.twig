@@ -3,70 +3,80 @@
 {% block title %}Liste des montres{% endblock %}
 
 {% block body %}
-    <div class="container mt-4">
+<div class="container mt-4">
 
-        <h1 class="mb-4">Liste des montres</h1>
+    <h1 class="mb-4">Liste des montres</h1>
 
-        <table class="table table-striped table-bordered align-middle">
-            <thead class="table-dark">
+    <table class="table table-striped table-bordered align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>Id</th>
+                <th>Photo</th>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for montre in montres %}
+
+                {% set isOwner = app.user
+                    and montre.watchCollection
+                    and montre.watchCollection.member
+                    and montre.watchCollection.member.id == app.user.id
+                %}
+
                 <tr>
-                    <th>Id</th>
-                    <th>Photo</th>
-                    <th>Nom</th>
-                    <th>Description</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
+                    <td>{{ montre.id }}</td>
 
-            <tbody>
-                {% for montre in montres %}
-                    <tr>
-                        <td>{{ montre.id }}</td>
-
-                        <td>
-                            {% if montre.imageName %}
-                                <img
-                                    src="{{ vich_uploader_asset(montre, 'imageFile') }}"
-                                    alt="Photo de {{ montre.nom }}"
-                                    class="img-thumbnail"
-                                    style="width: 100px; height: 100px; object-fit: cover;"
-                                >
-                            {% else %}
-                                <span class="text-muted">
-                                    Aucune image
-                                </span>
-                            {% endif %}
-                        </td>
-
-                        <td>{{ montre.nom }}</td>
-
-                        <td>{{ montre.description }}</td>
-
-                        <td>
-                            <a
-                                href="{{ path('app_montre_show', {'id': montre.id}) }}"
-                                class="btn btn-info btn-sm"
+                    <td>
+                        {% if montre.imageName %}
+                            <img
+                                src="{{ vich_uploader_asset(montre, 'imageFile') }}"
+                                alt="Photo de {{ montre.nom }}"
+                                class="img-thumbnail"
+                                style="width: 100px; height: 100px; object-fit: cover;"
                             >
-                                Consulter
-                            </a>
+                        {% else %}
+                            <span class="text-muted">
+                                Aucune image
+                            </span>
+                        {% endif %}
+                    </td>
 
+                    <td>{{ montre.nom }}</td>
+
+                    <td>{{ montre.description }}</td>
+
+                    <td>
+                        <a
+                            href="{{ path('app_montre_show', {'id': montre.id}) }}"
+                            class="btn btn-info btn-sm"
+                        >
+                            Consulter
+                        </a>
+
+                        {% if isOwner %}
                             <a
                                 href="{{ path('app_montre_edit', {'id': montre.id}) }}"
                                 class="btn btn-warning btn-sm"
                             >
                                 Modifier
                             </a>
-                        </td>
-                    </tr>
-                {% else %}
-                    <tr>
-                        <td colspan="5" class="text-center">
-                            Aucune montre enregistrée.
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                        {% endif %}
+                    </td>
+                </tr>
 
-    </div>
+            {% else %}
+                <tr>
+                    <td colspan="5" class="text-center">
+                        Aucune montre enregistrée.
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
 {% endblock %}

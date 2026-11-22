@@ -1,54 +1,93 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Collection n°{{ watchCollection.id }}{% endblock %}
+{% block title %}
+    Collection n°{{ watchCollection.id }}
+{% endblock %}
 
 {% block body %}
-    <h1>Collection</h1>
+<div class="container mt-4">
 
-    <table class="table">
+    {% set isOwner = app.user
+        and watchCollection.member
+        and watchCollection.member.id == app.user.id
+    %}
+
+    <h1 class="mb-4">Collection</h1>
+
+    <table class="table table-striped">
         <tbody>
+
             <tr>
                 <th>Id</th>
                 <td>{{ watchCollection.id }}</td>
             </tr>
+
             <tr>
                 <th>Description</th>
                 <td>{{ watchCollection.description }}</td>
             </tr>
+
         </tbody>
     </table>
 
-    <h2>Montres</h2>
+    <h2 class="mb-3">Montres</h2>
 
-    <a href="{{ path('app_montre_new', {'id': watchCollection.id}) }}"
-       class="btn btn-primary mb-3">
-        Ajouter une montre
-    </a>
+    {% if isOwner %}
 
-    <ul>
-        {% for montre in watchCollection.montres %}
-            <li>
-                <a href="{{ path('app_montre_show', {'id': montre.id}) }}">
-                    {{ montre.nom }}
-                </a>
-            </li>
-        {% else %}
-            <li>Aucune montre dans cette collection.</li>
-        {% endfor %}
-    </ul>
-
-    {% if watchCollection.member is defined and watchCollection.member is not null %}
-        <a href="{{ path('app_member_show', {'id': watchCollection.member.id}) }}"
-           class="btn btn-secondary">
-            Retour à la fiche du membre
+        <a
+            href="{{ path('app_montre_new', {
+                'id': watchCollection.id
+            }) }}"
+            class="btn btn-primary mb-3"
+        >
+            Ajouter une montre
         </a>
-    {% else %}
-        <p class="text-muted">
-            Aucun membre n'est associé à cette collection.
-        </p>
+
     {% endif %}
 
-    <a href="{{ path('watch_collection_list') }}" class="btn btn-secondary">
+    <ul class="list-group mb-4">
+
+        {% for montre in watchCollection.montres %}
+
+            <li class="list-group-item">
+
+                <a href="{{ path('app_montre_show', {
+                    'id': montre.id
+                }) }}">
+                    {{ montre.nom }}
+                </a>
+
+            </li>
+
+        {% else %}
+
+            <li class="list-group-item">
+                Aucune montre dans cette collection.
+            </li>
+
+        {% endfor %}
+
+    </ul>
+
+    {% if isOwner %}
+
+        <a
+            href="{{ path('app_member_show', {
+                'id': app.user.id
+            }) }}"
+            class="btn btn-secondary"
+        >
+            Retour à mon espace
+        </a>
+
+    {% endif %}
+
+    <a
+        href="{{ path('watch_collection_list') }}"
+        class="btn btn-outline-secondary"
+    >
         Retour à la liste des collections
     </a>
+
+</div>
 {% endblock %}

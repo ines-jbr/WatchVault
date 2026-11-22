@@ -3,67 +3,81 @@
 {% block title %}Détails de la montre{% endblock %}
 
 {% block body %}
-    <div class="container mt-4">
+<div class="container mt-4">
 
-        <h1 class="mb-4">Détails de la montre</h1>
+    <h1 class="mb-4">Détails de la montre</h1>
 
-        <table class="table">
-            <tbody>
-                <tr>
-                    <th>Id</th>
-                    <td>{{ montre.id }}</td>
-                </tr>
+    {% set isOwner = app.user
+        and montre.watchCollection
+        and montre.watchCollection.member
+        and montre.watchCollection.member.id == app.user.id
+    %}
 
-                <tr>
-                    <th>Nom</th>
-                    <td>{{ montre.nom }}</td>
-                </tr>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ montre.id }}</td>
+            </tr>
 
-                <tr>
-                    <th>Description</th>
-                    <td>{{ montre.description }}</td>
-                </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ montre.nom }}</td>
+            </tr>
 
-                <tr>
-                    <th>Collection</th>
-                    <td>
-                        {% if montre.watchCollection %}
-                            {{ montre.watchCollection.id }}
-                        {% else %}
-                            Aucune collection
-                        {% endif %}
-                    </td>
-                </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ montre.description }}</td>
+            </tr>
 
-                <tr>
-                    <th>Photo</th>
-                    <td>
-                        {% if montre.imageName %}
-                            <img
-                                src="{{ vich_uploader_asset(montre, 'imageFile') }}"
-                                alt="Photo de {{ montre.nom }}"
-                                class="img-fluid rounded"
-                                style="max-width: 350px;"
-                            >
-                        {% else %}
-                            <p>Aucune image disponible.</p>
-                        {% endif %}
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+            <tr>
+                <th>Collection</th>
+                <td>
+                    {% if montre.watchCollection %}
+                        {{ montre.watchCollection.description }}
+                    {% else %}
+                        Aucune collection
+                    {% endif %}
+                </td>
+            </tr>
 
-        <a href="{{ path('app_montre_index') }}"
-           class="btn btn-secondary">
-            Retour à la liste
-        </a>
+            <tr>
+                <th>Photo</th>
+                <td>
+                    {% if montre.imageName %}
+                        <img
+                            src="{{ vich_uploader_asset(montre, 'imageFile') }}"
+                            alt="Photo de {{ montre.nom }}"
+                            class="img-fluid rounded"
+                            style="max-width: 350px;"
+                        >
+                    {% else %}
+                        <p>Aucune image disponible.</p>
+                    {% endif %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
-        <a href="{{ path('app_montre_edit', {'id': montre.id}) }}"
-           class="btn btn-primary">
+    <a
+        href="{{ path('app_montre_index') }}"
+        class="btn btn-secondary"
+    >
+        Retour à la liste
+    </a>
+
+    {% if isOwner %}
+
+        <a
+            href="{{ path('app_montre_edit', {'id': montre.id}) }}"
+            class="btn btn-primary"
+        >
             Modifier
         </a>
 
         {{ include('montre/_delete_form.html.twig') }}
 
-    </div>
+    {% endif %}
+
+</div>
 {% endblock %}

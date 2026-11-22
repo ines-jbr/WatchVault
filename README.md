@@ -1,182 +1,330 @@
+# WatchVault
+
+## Présentation du projet
+
+WatchVault est une application web développée avec Symfony permettant aux passionnés de montres de gérer leurs collections et de présenter une sélection de leurs montres dans des vitrines publiques ou privées.
+
+Chaque membre dispose d'un espace personnel dans lequel il peut consulter sa collection, gérer ses montres et créer ses vitrines.
+
+L'application intègre un système d'authentification et de contrôle d'accès afin de protéger les données et les opérations réservées aux propriétaires.
+
+## Technologies utilisées
+
+- **Framework :** Symfony 7.4 LTS
+- **Langage :** PHP
+- **Base de données :** SQLite
+- **ORM :** Doctrine
+- **Templates :** Twig
+- **Interface :** Bootstrap
+- **Authentification :** Symfony Security
+- **Gestion des images :** VichUploaderBundle
+- **Données de test :** Doctrine Fixtures
+- **Gestion de versions :** Git et GitHub
+
+## Fonctionnalités principales
+
+### 1. Gestion des membres
+
+- Authentification par adresse e-mail et mot de passe.
+- Connexion et déconnexion.
+- Accès à un espace personnel.
+- Affichage des informations du membre connecté.
+- Protection des pages personnelles.
+
+### 2. Gestion des collections
+
+- Consultation des collections.
+- Consultation des montres appartenant à une collection.
+- Association d'une collection à un membre.
+- Création de montres dans la collection du membre connecté.
+- Vérification du propriétaire avant toute modification.
+
+### 3. Gestion des montres
+
+- Création d'une montre.
+- Consultation des montres.
+- Modification des informations.
+- Suppression d'une montre.
+- Association à une collection.
+- Téléversement et affichage des images.
+- Protection des opérations de modification et de suppression.
+
+### 4. Gestion des vitrines
+
+- Création d'une vitrine.
+- Modification et suppression.
+- Association d'une vitrine à son créateur.
+- Sélection de plusieurs montres.
+- Filtrage des montres selon la collection du propriétaire.
+- Publication ou dépublication d'une vitrine.
+- Consultation publique des vitrines publiées.
+- Consultation des vitrines privées par leur propriétaire.
+
+### 5. Sécurité
+
+- Authentification avec Symfony Security.
+- Utilisation du rôle `ROLE_USER`.
+- Vérification du membre connecté.
+- Contrôle des droits sur les collections.
+- Contrôle des droits sur les montres.
+- Contrôle des droits sur les vitrines.
+- Protection des opérations CRUD.
+- Vérification des montres sélectionnées dans une vitrine.
+- Affichage conditionnel des boutons selon les autorisations.
+
+## Modèle de données
+
+L'application repose sur quatre entités principales :
+
+**Member**
+- Représente un utilisateur.
+- Possède une collection.
+- Peut créer plusieurs vitrines.
+
+**WatchCollection**
+- Représente une collection de montres.
+- Est associée à un membre.
+- Contient plusieurs montres.
+
+**Montre**
+- Représente une montre.
+- Appartient à une collection.
+- Peut apparaître dans plusieurs vitrines.
+- Peut posséder une image.
+
+**Vitrine**
+- Représente une sélection de montres.
+- Appartient à un membre.
+- Peut être publiée ou privée.
+- Peut contenir plusieurs montres.
+
+## Installation et exécution
+
+### 1. Installer les dépendances
+
+```bash
+composer install
+```
+
+### 2. Configurer la base de données
+
+Configurer `DATABASE_URL` dans le fichier `.env` pour utiliser SQLite.
+
+### 3. Exécuter les migrations
+
+```bash
+php bin/console doctrine:migrations:migrate
+```
+
+### 4. Charger les données de test
+
+```bash
+php bin/console doctrine:fixtures:load
+```
+
+Attention : cette commande peut remplacer les données existantes de la base de développement.
+
+### 5. Démarrer le serveur
+
+```bash
+symfony server:start
+```
+
+### 6. Accéder à l'application
+
+Ouvrir l'adresse locale affichée par Symfony.
+
 ## Suivi du développement
 
-### Étape 0 — Mise en place du projet
+### Étape 0 — Initialisation du projet
 
-- Création du projet Symfony WatchVault.
-- Configuration de Git et du dépôt GitHub.
-- Configuration du projet Symfony avec `--webapp`.
-- Suppression de `symfony/ux-turbo`.
-- Chargement du projet dans Eclipse.
-- Vérification du fonctionnement du serveur Symfony.
+- Création du projet Symfony.
+- Configuration de Git et GitHub.
+- Installation des dépendances.
+- Configuration de l'environnement.
 
 **État : Terminée**
 
-### Étape 1 — Premières entités et base de données
+### Étape 1 — Entités et base de données
 
-- Création de l'entité `WatchCollection`.
-- Création de l'entité `Montre`.
-- Ajout des propriétés nécessaires aux entités.
-- Mise en place de la relation entre `WatchCollection` et `Montre`.
+- Création de `WatchCollection`.
+- Création de `Montre`.
+- Configuration des relations Doctrine.
 - Configuration de SQLite.
 - Création et exécution des migrations.
-- Vérification du mapping Doctrine et du schéma de la base de données.
 
 **État : Terminée**
 
-### Étape 2 — Membres
+### Étape 2 — Gestion des membres
 
-- Création de l'entité `Member` avec `make:user`.
-- Configuration de l'identification par adresse e-mail.
-- Gestion du mot de passe avec le système de hachage Symfony.
-- Association d'un membre à une `WatchCollection`.
-- Mise à jour et validation du schéma Doctrine.
+- Création de l'entité `Member`.
+- Configuration de l'identification par e-mail.
+- Hachage des mots de passe.
+- Association entre les membres et les collections.
 
 **État : Terminée**
 
-### Étape 3 — Fixtures et données de test
+### Étape 3 — Fixtures
 
 - Installation de Doctrine Fixtures.
-- Création du fichier `AppFixtures.php`.
-- Création de collections, de montres et d'un membre de test.
-- Association des montres à leurs collections.
-- Hachage du mot de passe avec `UserPasswordHasherInterface`.
-- Chargement et vérification des fixtures.
+- Création des données de test.
+- Association des membres, collections et montres.
+- Vérification des données enregistrées.
 
 **État : Terminée**
 
-### Étape 4 — Premières pages de consultation
+### Étape 4 — Pages de consultation
 
-- Création de `WatchCollectionController`.
-- Consultation de la liste des collections.
-- Consultation d'une collection et de ses montres.
-- Gestion des identifiants inexistants avec une erreur 404.
-- Mise en place de la navigation entre les collections et les montres.
+- Création des contrôleurs.
+- Affichage des collections.
+- Affichage des montres.
+- Gestion des identifiants inexistants.
 
 **État : Terminée**
 
-### Étape 5 — Gabarits Twig et navigation
+### Étape 5 — Twig et navigation
 
+- Création des templates Twig.
 - Utilisation de `base.html.twig`.
-- Création des gabarits de consultation des collections et des montres.
-- Affichage des montres appartenant à une collection.
-- Navigation entre une collection et une montre.
-- Utilisation de `path()` pour générer les liens.
+- Navigation entre collections et montres.
+- Utilisation de `path()`.
 
 **État : Terminée**
 
 ### Étape 6 — Bootstrap et vitrines
 
-- Intégration du thème Bootstrap Shop Homepage.
-- Configuration des ressources CSS et JavaScript.
-- Installation et configuration de `camurphy/bootstrap-menu-bundle`.
+- Intégration de Bootstrap.
+- Configuration du menu principal.
 - Création de l'entité `Vitrine`.
-- Ajout des propriétés `description` et `publiee`.
-- Création de la migration initiale de la table `vitrine`.
+- Configuration des relations Doctrine.
 
 **État : Terminée**
+
+### Étape 7 — Gestion des accès
+
+Cette étape a été développée progressivement dans les étapes 15 et 16.
+
+- Mise en place de l'authentification.
+- Gestion des accès publics et privés.
+- Protection des fonctionnalités réservées aux membres.
+- Vérification des droits des propriétaires.
+
+**État : Fonctionnalités implémentées**
+
+### Étape 8 — Administration
+
+Le back-office d'administration n'est pas inclus dans le périmètre fonctionnel livré. Il constitue une possibilité d'évolution future.
 
 ### Étape 9 — CRUD des vitrines
 
-- Génération du contrôleur CRUD des vitrines.
-- Création des pages de création, de consultation, de modification et de suppression.
-- Affichage des montres associées à une vitrine.
-- Personnalisation des gabarits Twig avec Bootstrap.
-- Vérification du fonctionnement des formulaires et des pages.
+- Création des pages CRUD.
+- Gestion des vitrines.
+- Affichage des montres associées.
+- Personnalisation des interfaces.
 
 **État : Terminée**
 
-### Étape 10 — Réorganisation et contextualisation des contrôleurs
+### Étape 10 — Contextualisation des contrôleurs
 
-- Réorganisation de la consultation des montres dans le contexte des vitrines.
-- Génération du CRUD des montres.
-- Contextualisation de la consultation d'une montre depuis une vitrine.
-- Vérification de la cohérence entre la montre consultée et la vitrine.
-- Mise en place du contrôle empêchant de consulter une montre qui n'appartient pas à la vitrine concernée.
+- Consultation des montres depuis une vitrine.
+- Vérification de l'appartenance d'une montre à une vitrine.
+- Réorganisation des contrôleurs.
 
 **État : Terminée**
 
-### Étape 11 — Contextualisation de l'accès aux données d'un membre
+### Étape 11 — CRUD des montres
 
-- Création des pages de consultation des membres.
-- Affichage des informations du membre et de sa collection.
-- Mise en place du CRUD des montres.
-- Contextualisation de la création des montres dans la collection concernée.
-- Adaptation des redirections après modification et suppression des montres.
-- Vérification du fonctionnement des pages et des redirections.
+- Création des pages des membres.
+- Gestion des montres.
+- Association des montres aux collections.
+- Adaptation des redirections.
 
 **État : Terminée**
 
-### Étape 12 — Contextualisation du CRUD des vitrines
+### Étape 12 — CRUD contextualisé des vitrines
 
-#### 12.1 — Affichage des vitrines du membre
-
-- Affichage des vitrines associées au membre sur sa page de consultation.
-- Affichage d'un message lorsque le membre ne possède aucune vitrine.
-
-**État : Terminée**
-
-#### 12.2 — Contextualisation de la création d'une vitrine
-
-- Création d'une vitrine depuis la page du membre.
-- Association automatique de la nouvelle vitrine au membre concerné.
-- Suppression des liens de création depuis la liste générale des vitrines.
-- Adaptation du formulaire pour ne plus choisir manuellement le membre créateur.
+- Création des vitrines depuis l'espace personnel.
+- Association automatique au membre.
+- Gestion des redirections.
+- Filtrage des vitrines publiées.
 
 **État : Terminée**
 
-#### 12.3 — Contextualisation des redirections
+### Étape 13 — Sélection des montres
 
-- Redirection vers la page du créateur après modification d'une vitrine.
-- Redirection vers la page du créateur après suppression d'une vitrine.
-- Vérification des redirections après les opérations CRUD.
-
-**État : Terminée**
-
-#### 12.4 — Affichage des vitrines publiques
-
-- Filtrage de la liste générale pour afficher uniquement les vitrines publiées.
-- Conservation de l'affichage des vitrines du membre sur sa page, même lorsqu'elles ne sont pas publiées.
-- Vérification du comportement des vitrines publiques et non publiées.
+- Sélection multiple des montres.
+- Utilisation de cases à cocher.
+- Configuration des relations ManyToMany.
+- Filtrage selon la collection du propriétaire.
 
 **État : Terminée**
 
-## Améliorations possibles
+### Étape 14 — Gestion des images
 
-- Renforcer les contrôles d'accès et les autorisations selon le membre connecté.
-- Ajouter des tests automatisés aux fonctionnalités principales.
-- Améliorer la gestion des messages flash après les opérations CRUD.
-- Mettre en place un espace d'administration.
-
-### Étape 13 — Sélection des montres dans une vitrine
-
-- Adaptation du formulaire `VitrineType` pour sélectionner les montres à afficher.
-- Affichage des montres sous forme de cases à cocher.
-- Autorisation de sélectionner plusieurs montres avec `multiple => true` et `expanded => true`.
-- Utilisation de `by_reference => false` pour gérer correctement les associations entre les vitrines et les montres.
-- Filtrage des montres proposées selon la collection du créateur de la vitrine.
-- Vérification des méthodes `getMontres()`, `addMontre()` et `removeMontre()` de l'entité `Vitrine`.
-- Vérification de la syntaxe PHP.
-- Test de création d'une vitrine avec des montres sélectionnées.
-- Vérification de l'affichage des montres sélectionnées et du filtrage pour un autre membre.
+- Installation de VichUploaderBundle.
+- Configuration du stockage.
+- Modification de l'entité `Montre`.
+- Téléversement des images.
+- Affichage des photos dans les différentes pages.
+- Ajout d'images dans les fixtures.
 
 **État : Terminée**
 
-### Étape 14 — Gestion du téléversement et de l'affichage des images
+### Étape 15 — Authentification
 
-- Installation de `vich/uploader-bundle` avec Composer.
-- Configuration du mapping `montres` dans `config/packages/vich_uploader.yaml`.
-- Configuration du stockage des images dans `public/images/montres/`.
-- Ajout des propriétés `imageFile`, `imageName`, `imageSize` et `updatedAt` à l'entité `Montre`.
-- Utilisation de `#[Vich\Uploadable]` et `#[Vich\UploadableField]`.
-- Création et exécution d'une migration Doctrine pour les nouvelles propriétés.
-- Modification de `MontreType` avec `VichImageType` pour permettre le téléversement d'une photo.
-- Affichage des images avec `vich_uploader_asset()` dans les gabarits Twig.
-- Ajout des photos dans la liste et la page de détail des montres.
-- Affichage des photos dans les vitrines et dans la consultation d'une montre depuis une vitrine.
-- Ajout de quatre images d'exemple dans `src/DataFixtures/images/`.
-- Adaptation de `AppFixtures.php` pour associer automatiquement les images aux montres.
-- Vérification de l'enregistrement des noms de fichiers dans la base de données.
-- Modification de `.gitignore` pour exclure les images téléversées tout en conservant les images des fixtures.
-- Tests du téléversement, de l'enregistrement et de l'affichage des images.
+- Création du formulaire de connexion.
+- Configuration de Symfony Security.
+- Gestion de la connexion et de la déconnexion.
+- Adaptation de la navigation.
+- Redirection vers l'espace personnel.
 
 **État : Terminée**
+
+### Étape 16 — Sécurisation des fonctionnalités
+
+- Protection des pages personnelles.
+- Vérification du propriétaire des collections.
+- Protection des opérations CRUD des montres.
+- Protection des opérations CRUD des vitrines.
+- Restriction de l'accès aux vitrines privées.
+- Vérification des montres sélectionnées.
+
+**État : Implémentée**
+
+### Étape 17 — Contextualisation des interfaces
+
+- Personnalisation de l'espace membre.
+- Affichage des vitrines personnelles.
+- Affichage du statut de publication.
+- Adaptation des boutons selon les autorisations.
+- Personnalisation des pages des montres.
+- Personnalisation des pages des vitrines.
+- Personnalisation des pages des collections.
+- Conservation de l'affichage des images.
+
+**État : Implémentée**
+
+### Étape 18 — Vérifications finales
+
+Les vérifications techniques suivantes ont été effectuées :
+
+- Validation de la syntaxe Twig.
+- Validation du mapping Doctrine.
+- Vérification de la synchronisation de la base SQLite.
+- Vérification des routes Symfony.
+- Vérification de l'état du dépôt Git.
+
+**État : Vérifications techniques réussies**
+
+## Évolutions possibles
+
+- Développement d'un espace d'administration.
+- Ajout de tests automatisés.
+- Amélioration des messages flash.
+- Amélioration de l'interface utilisateur.
+
+## Conclusion
+
+WatchVault est une application Symfony fonctionnelle permettant la gestion des collections, des montres et des vitrines.
+
+Le projet met en pratique les principales fonctionnalités étudiées dans le cadre du développement web avec Symfony : Doctrine ORM, Twig, formulaires, relations entre entités, authentification, contrôle d'accès et téléversement d'images.

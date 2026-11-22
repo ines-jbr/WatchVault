@@ -1,58 +1,161 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Fiche du membre{% endblock %}
+{% block title %}Mon espace - WatchVault{% endblock %}
 
 {% block body %}
-    <div class="container mt-4">
-        <h1>Fiche du membre</h1>
+<div class="container mt-4">
 
-        <table class="table table-striped">
-            <tbody>
-                <tr>
-                    <th>Identifiant</th>
-                    <td>{{ member.id }}</td>
-                </tr>
-                <tr>
-                    <th>Adresse e-mail</th>
-                    <td>{{ member.email }}</td>
-                </tr>
-            </tbody>
-        </table>
+    <h1 class="mb-4">Mon espace personnel</h1>
 
-        <h2>Mon inventaire</h2>
+    {# Informations du membre #}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h2 class="h5 mb-0">Mes informations</h2>
+        </div>
 
-        <a
-            href="{{ path('watch_collection_show', {'id': member.watchCollection.id}) }}"
-            class="btn btn-primary mb-4"
-        >
-            Consulter mon inventaire
-        </a>
-
-        <h2>Mes vitrines</h2>
-
-        <a
-            href="{{ path('app_vitrine_new', {'id': member.id}) }}"
-            class="btn btn-success mb-3"
-        >
-            Créer une vitrine
-        </a>
-
-        <ul class="list-group mb-4">
-            {% for vitrine in member.vitrines %}
-                <li class="list-group-item">
-                    <a href="{{ path('app_vitrine_show', {'id': vitrine.id}) }}">
-                        {{ vitrine.description }}
-                    </a>
-                </li>
-            {% else %}
-                <li class="list-group-item">
-                    Aucune vitrine pour ce membre.
-                </li>
-            {% endfor %}
-        </ul>
-
-        <a href="{{ path('app_member_index') }}" class="btn btn-secondary">
-            Retour à la liste des membres
-        </a>
+        <div class="card-body">
+            <p><strong>Identifiant :</strong> {{ member.id }}</p>
+            <p><strong>Adresse e-mail :</strong> {{ member.email }}</p>
+        </div>
     </div>
+
+    {# Collection personnelle #}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h2 class="h5 mb-0">Mon inventaire</h2>
+        </div>
+
+        <div class="card-body">
+
+            {% if member.watchCollection %}
+
+                <p>
+                    <strong>Collection :</strong>
+                    {{ member.watchCollection.description }}
+                </p>
+
+                <a
+                    href="{{ path('watch_collection_show', {
+                        'id': member.watchCollection.id
+                    }) }}"
+                    class="btn btn-primary"
+                >
+                    Consulter mon inventaire
+                </a>
+
+                <a
+                    href="{{ path('app_montre_new', {
+                        'id': member.watchCollection.id
+                    }) }}"
+                    class="btn btn-success"
+                >
+                    Ajouter une montre
+                </a>
+
+            {% else %}
+
+                <p class="text-muted">
+                    Aucune collection associée à votre compte.
+                </p>
+
+            {% endif %}
+
+        </div>
+    </div>
+
+    {# Vitrines personnelles #}
+    <div class="card mb-4">
+
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h2 class="h5 mb-0">Mes vitrines</h2>
+
+            <a
+                href="{{ path('app_vitrine_new', {
+                    'id': member.id
+                }) }}"
+                class="btn btn-success btn-sm"
+            >
+                + Créer une vitrine
+            </a>
+        </div>
+
+        <div class="card-body">
+
+            {% if member.vitrines is not empty %}
+
+                <div class="table-responsive">
+                    <table class="table table-striped align-middle">
+
+                        <thead>
+                            <tr>
+                                <th>Description</th>
+                                <th>Statut</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for vitrine in member.vitrines %}
+                                <tr>
+
+                                    <td>{{ vitrine.description }}</td>
+
+                                    <td>
+                                        {% if vitrine.publiee %}
+                                            <span class="badge bg-success">
+                                                Publiée
+                                            </span>
+                                        {% else %}
+                                            <span class="badge bg-secondary">
+                                                Privée
+                                            </span>
+                                        {% endif %}
+                                    </td>
+
+                                    <td>
+                                        <a
+                                            href="{{ path('app_vitrine_show', {
+                                                'id': vitrine.id
+                                            }) }}"
+                                            class="btn btn-primary btn-sm"
+                                        >
+                                            Consulter
+                                        </a>
+
+                                        <a
+                                            href="{{ path('app_vitrine_edit', {
+                                                'id': vitrine.id
+                                            }) }}"
+                                            class="btn btn-warning btn-sm"
+                                        >
+                                            Modifier
+                                        </a>
+                                    </td>
+
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+
+                    </table>
+                </div>
+
+            {% else %}
+
+                <p class="text-muted">
+                    Vous n'avez pas encore créé de vitrine.
+                </p>
+
+            {% endif %}
+
+        </div>
+    </div>
+
+    <a
+        href="{{ path('app_vitrine_index') }}"
+        class="btn btn-secondary"
+    >
+        Voir les vitrines publiques
+    </a>
+
+</div>
 {% endblock %}

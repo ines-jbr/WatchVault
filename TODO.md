@@ -1,41 +1,32 @@
-# TODO - WatchVault
+# TODO — WatchVault
 
-## TP3 — Suivi du développement
+## Suivi du développement
+
+**Statut du projet : Fonctionnalités principales développées**
 
 ---
 
-## Étape 0 — Mise en place du projet
+## Étape 0 — Initialisation
 
-* [x] Créer le projet Symfony `WatchVault`
-* [x] Configurer Git
-* [x] Configurer Symfony avec `--webapp`
-* [x] Supprimer `symfony/ux-turbo`
-* [x] Charger le projet dans Eclipse
-* [x] Tester le serveur Symfony
+- [x] Créer le projet Symfony WatchVault
+- [x] Configurer Git et GitHub
+- [x] Installer les dépendances
+- [x] Configurer l'environnement
+- [x] Tester le serveur Symfony
 
 **État : Terminée**
 
 ---
 
-## Étape 1 — Premières entités et base de données
+## Étape 1 — Entités et base de données
 
-### Modèle
-
-* [x] Créer l'entité `WatchCollection` (Collection)
-* [x] Créer l'entité `Montre`
-* [x] Ajouter la description de la Collection
-* [x] Ajouter le nom de la Montre
-* [x] Ajouter la description de la Montre
-* [x] Mettre en place la relation `WatchCollection` → `Montre`
-* [x] Vérifier que chaque Montre appartient obligatoirement à une Collection
-* [x] Respecter la cardinalité `WatchCollection (1) → (0..n) Montre`
-
-### Base de données
-
-* [x] Configurer SQLite
-* [x] Créer / mettre à jour le schéma de la base de données
-* [x] Vérifier le mapping Doctrine
-* [x] Vérifier que la base de données est synchronisée avec les entités
+- [x] Créer l'entité WatchCollection
+- [x] Créer l'entité Montre
+- [x] Configurer les relations Doctrine
+- [x] Configurer SQLite
+- [x] Créer les migrations
+- [x] Exécuter les migrations
+- [x] Vérifier le schéma de la base de données
 
 **État : Terminée**
 
@@ -43,321 +34,250 @@
 
 ## Étape 2 — Membres
 
-* [x] Créer l'entité `Member` avec `make:user`
-* [x] Configurer l'identification par adresse e-mail
-* [x] Configurer le mot de passe avec le système de hachage Symfony
-* [x] Associer un membre à sa Collection
-* [x] Mettre à jour le schéma de la base de données
-* [x] Vérifier le mapping Doctrine
-* [x] Vérifier la synchronisation entre les entités et la base de données
-* [x] Ajouter un membre dans les fixtures
-* [x] Hacher le mot de passe dans les fixtures
-* [x] Charger les fixtures
-* [x] Vérifier le fonctionnement des données
+- [x] Créer l'entité Member
+- [x] Configurer l'identification par e-mail
+- [x] Configurer le hachage des mots de passe
+- [x] Associer les membres aux collections
+- [x] Vérifier les relations Doctrine
 
 **État : Terminée**
 
 ---
 
-## Étape 3 — proj-3 : Fixtures et données de test
+## Étape 3 — Fixtures
 
-* [x] Installer Doctrine Fixtures
-* [x] Créer `AppFixtures.php`
-* [x] Ajouter plusieurs `WatchCollection`
-* [x] Ajouter plusieurs `Montre`
-* [x] Utiliser des références entre les fixtures
-* [x] Associer les `Montre` aux `WatchCollection`
-* [x] Ajouter un `Member` dans les fixtures
-* [x] Associer le `Member` à une `WatchCollection`
-* [x] Hacher le mot de passe du membre
-* [x] Charger les fixtures
-* [x] Vérifier les données dans SQLite
-* [x] Vérifier le mapping Doctrine
+- [x] Installer Doctrine Fixtures
+- [x] Créer AppFixtures
+- [x] Ajouter des membres
+- [x] Ajouter des collections
+- [x] Ajouter des montres
+- [x] Configurer les associations
+- [x] Charger les fixtures
 
 **État : Terminée**
 
 ---
 
-## Étape 4 — proj-4 : Premières pages publiques en consultation
+## Étape 4 — Pages de consultation
 
-### Contrôleur `WatchCollectionController`
-
-* [x] Générer le contrôleur `WatchCollectionController` avec `make:controller`
-* [x] Vérifier les routes avec `debug:router`
-* [x] Vérifier les contrôleurs avec `debug:router --show-controllers`
-* [x] Tester le contrôleur avec le serveur Symfony
-
-### Liste des collections
-
-* [x] Créer la route `/watch/collection`
-* [x] Charger les `WatchCollection` avec Doctrine
-* [x] Utiliser le repository Doctrine
-* [x] Afficher la liste des collections
-* [x] Générer une page HTML de consultation
-* [x] Tester l'affichage des collections
-
-### Consultation d'une collection
-
-* [x] Créer la route `/watch/collection/{id}`
-* [x] Récupérer une `WatchCollection` à partir de son identifiant
-* [x] Afficher les informations de la collection
-* [x] Gérer le cas d'une collection inexistante avec une erreur 404
-* [x] Ajouter une contrainte pour accepter uniquement un identifiant numérique
-
-### Navigation
-
-* [x] Ajouter un lien vers chaque collection depuis la liste
-* [x] Utiliser `generateUrl()`
-* [x] Utiliser la route `watch_collection_show`
-* [x] Tester la navigation entre la liste et la page d'une collection
-
-### Correction Doctrine
-
-* [x] Corriger le type `Montre` dans `WatchCollection`
-* [x] Corriger l'utilisation de `Montre::class`
-* [x] Vérifier le mapping entre `WatchCollection` et `Montre`
-* [x] Vérifier le fonctionnement après correction
+- [x] Créer les contrôleurs
+- [x] Afficher les collections
+- [x] Afficher les montres
+- [x] Gérer les erreurs 404
+- [x] Tester la navigation
 
 **État : Terminée**
 
 ---
 
-## Étape 5 — Gabarits Twig et navigation entre les entités
+## Étape 5 — Twig
 
-### Prise en main de Twig
-
-* [x] Étudier le fonctionnement des gabarits Twig
-* [x] Utiliser `base.html.twig`
-* [x] Utiliser les blocs Twig `title` et `body`
-* [x] Utiliser `{{ }}` pour afficher des valeurs
-* [x] Utiliser `{% %}` pour les instructions Twig
-* [x] Utiliser `path()` pour générer les liens
-* [x] Utiliser `dump` pour inspecter les objets
-
-### Gabarit de consultation d'une collection
-
-* [x] Créer `templates/watch_collection/show.html.twig`
-* [x] Utiliser `{% extends 'base.html.twig' %}`
-* [x] Afficher l'identifiant de la collection
-* [x] Afficher la description de la collection
-* [x] Utiliser `dump` sur `watchCollection`
-* [x] Ajouter un lien de retour vers la liste des collections
-* [x] Utiliser la route `watch_collection_list`
-
-### Modification de `WatchCollectionController`
-
-* [x] Modifier la méthode `show()`
-* [x] Remplacer la génération manuelle du HTML par `render()`
-* [x] Transmettre `watchCollection` au gabarit Twig
-
-### Création de `MontreController`
-
-* [x] Créer `MontreController` avec `make:controller`
-* [x] Créer la route `/montre/{id}`
-* [x] Utiliser la route `montre_show`
-* [x] Rechercher une `Montre` avec Doctrine
-* [x] Gérer le cas où la montre n'existe pas avec une erreur 404
-
-### Gabarit de consultation d'une montre
-
-* [x] Créer `templates/montre/show.html.twig`
-* [x] Afficher l'identifiant de la montre
-* [x] Afficher le nom de la montre
-* [x] Afficher la description de la montre
-* [x] Utiliser `dump` sur `montre`
-
-### Affichage des montres d'une collection
-
-* [x] Utiliser `watchCollection.montres`
-* [x] Utiliser une boucle Twig `for`
-* [x] Afficher les montres appartenant à une collection
-* [x] Afficher les noms des montres dans une liste
-
-### Navigation Collection → Montre
-
-* [x] Ajouter un lien vers chaque montre depuis la page d'une collection
-* [x] Utiliser la route `montre_show`
-* [x] Transmettre l'identifiant de la montre avec `path()`
-* [x] Tester la navigation vers une page individuelle de montre
-
-### Navigation Montre → Collection
-
-* [x] Ajouter un lien de retour vers la collection depuis la page d'une montre
-* [x] Utiliser `montre.watchCollection`
-* [x] Utiliser la route `watch_collection_show`
-* [x] Tester la navigation entre une montre et sa collection
+- [x] Créer les templates Twig
+- [x] Utiliser base.html.twig
+- [x] Afficher les données des entités
+- [x] Utiliser les boucles Twig
+- [x] Utiliser path()
+- [x] Configurer la navigation
 
 **État : Terminée**
 
 ---
 
-## Étape 6 — Thème Bootstrap et vitrines
+## Étape 6 — Bootstrap et vitrines
 
-### Thème et navigation
-
-* [x] Intégrer le thème Bootstrap Shop Homepage
-* [x] Configurer le chemin des ressources CSS et JavaScript
-* [x] Installer `camurphy/bootstrap-menu-bundle`
-* [x] Configurer le menu principal
-* [x] Ajouter un lien vers la liste des collections
-* [x] Vérifier l'affichage et le fonctionnement des liens
-
-### Entité Vitrine
-
-* [x] Créer l'entité `Vitrine` avec `make:entity`
-* [x] Ajouter la propriété `description` de type `string`, non nullable
-* [x] Ajouter la propriété `publiee` de type `boolean`, non nullable
-* [x] Créer la migration de la table `vitrine`
-* [x] Exécuter la migration
-* [x] Vérifier le statut des migrations
-* [x] Vérifier le mapping Doctrine des quatre entités
-
-### Travaux restant à réaliser
-
-* [x] Associer `Member` à `Vitrine` avec une relation `OneToMany`
-* [x] Associer `Vitrine` à `Montre` avec une relation `ManyToMany`
-* [x] Mettre en place la gestion des vitrines
-* [x] Permettre de présenter publiquement une sélection de montres
-* [x] Tester le fonctionnement des vitrines
-
-**État :terminée**
-
----
----
-
-## Étape 9 — CRUD des vitrines
-
-* [x] Créer les pages de création, consultation, modification et suppression des vitrines
-* [x] Afficher les montres associées aux vitrines
-* [x] Personnaliser les gabarits Twig avec Bootstrap
-* [x] Tester les fonctionnalités CRUD
+- [x] Intégrer Bootstrap
+- [x] Configurer le menu principal
+- [x] Créer l'entité Vitrine
+- [x] Ajouter les propriétés nécessaires
+- [x] Configurer les relations Doctrine
+- [x] Exécuter les migrations
 
 **État : Terminée**
 
 ---
-
-## Étape 10 — Réorganisation et contextualisation des contrôleurs
-
-* [x] Réorganiser la consultation des montres dans le contexte des vitrines
-* [x] Créer le CRUD des montres
-* [x] Vérifier qu'une montre appartient à la vitrine consultée
-
-**État : Terminée**
-
----
-
-## Étape 11 — Pages des membres et CRUD contextualisé des montres
-
-* [x] Créer les pages de consultation des membres
-* [x] Afficher la collection du membre
-* [x] Contextualiser la création des montres dans la collection concernée
-* [x] Adapter les redirections après modification et suppression
-
-**État : Terminée**
-
----
-
-## Étape 12 — CRUD contextualisé des vitrines
-
-* [x] Afficher les vitrines du membre sur sa page
-* [x] Créer une vitrine depuis la page du membre
-* [x] Associer automatiquement la vitrine au membre concerné
-* [x] Supprimer les liens de création depuis la liste générale
-* [x] Rediriger vers la page du créateur après modification ou suppression
-* [x] Afficher uniquement les vitrines publiées dans la liste générale
-* [x] Conserver les vitrines non publiées sur la page de leur créateur
-* [x] Tester la création, la modification, la suppression et le filtrage des vitrines
-
-**État : Terminée**
-
-## Étape 13 — Sélection des montres dans une vitrine
-
-* [x] Adapter `VitrineType` pour sélectionner les montres
-* [x] Afficher les montres sous forme de cases à cocher
-* [x] Autoriser la sélection multiple avec `multiple => true`
-* [x] Afficher les choix avec `expanded => true`
-* [x] Configurer `by_reference => false`
-* [x] Filtrer les montres selon la collection du créateur de la vitrine
-* [x] Vérifier les méthodes d'ajout et de suppression des montres dans `Vitrine`
-* [x] Vérifier la syntaxe PHP
-* [x] Tester la création d'une vitrine avec des montres sélectionnées
-* [x] Vérifier l'affichage des montres sélectionnées
-* [x] Tester le filtrage avec un autre membre
-
-**État : Terminée**
-
----
-
----
-
-## Étape 14 — Gestion du téléversement et de l'affichage des images
-
-### Installation et configuration
-
-* [x] Installer `vich/uploader-bundle`
-* [x] Configurer le mapping `montres` dans `vich_uploader.yaml`
-* [x] Configurer le stockage dans `public/images/montres/`
-
-### Entité et base de données
-
-* [x] Ajouter `imageFile`, `imageName`, `imageSize` et `updatedAt` à `Montre`
-* [x] Configurer les attributs `Vich\Uploadable` et `Vich\UploadableField`
-* [x] Créer et exécuter la migration Doctrine
-* [x] Vérifier la syntaxe PHP et la configuration Symfony
-
-### Formulaire et téléversement
-
-* [x] Ajouter `VichImageType` dans `MontreType`
-* [x] Permettre le téléversement d'une image lors de la création d'une montre
-* [x] Vérifier l'enregistrement de l'image dans `public/images/montres/`
-
-### Affichage des images
-
-* [x] Afficher la photo dans `montre/show.html.twig`
-* [x] Afficher les miniatures dans `montre/index.html.twig`
-* [x] Afficher les photos des montres dans `vitrine/show.html.twig`
-* [x] Afficher la photo dans `vitrine/montreshow.html.twig`
-* [x] Tester l'affichage des images dans les différentes pages
-
-### DataFixtures
-
-* [x] Ajouter quatre images dans `src/DataFixtures/images/`
-* [x] Adapter `AppFixtures.php` pour associer les images aux montres
-* [x] Charger les fixtures avec Doctrine
-* [x] Vérifier les noms des images enregistrés dans SQLite
-
-### Documentation et Git
-
-* [x] Configurer `.gitignore` pour exclure les images téléversées
-* [x] Documenter l'étape 14 dans `README.md`
-* [x] Mettre à jour `TODO.md`
-
-**État : Terminée**
 
 ## Étape 7 — Gestion des accès
 
-* [ ] Gérer les accès privés
-* [ ] Gérer les accès publics
-* [ ] Vérifier les droits d'accès aux différentes fonctionnalités
-* [ ] Tester les différents niveaux d'accès
+- [x] Mettre en place l'authentification
+- [x] Gérer les accès publics
+- [x] Gérer les accès privés
+- [x] Protéger les opérations CRUD
+- [x] Vérifier les droits du propriétaire
 
-**État : À faire**
+**État : Fonctionnalités implémentées dans les étapes 15 et 16**
 
 ---
 
 ## Étape 8 — Administration
 
-* [ ] Mettre en place le back-office
-* [ ] Gérer les données depuis l'administration
-* [ ] Tester les fonctionnalités d'administration
-
-**État : À faire**
+Le back-office est exclu du périmètre livré et pourra être développé ultérieurement.
 
 ---
 
-## Documentation et Git
+## Étape 9 — CRUD des vitrines
 
-* [x] Documenter les étapes réalisées dans `README.md`
-* [x] Mettre à jour `TODO.md` après chaque étape importante
-* [x] Effectuer un commit Git après chaque étape importante
-* [x] Vérifier l'historique Git du projet
+- [x] Créer une vitrine
+- [x] Consulter une vitrine
+- [x] Modifier une vitrine
+- [x] Supprimer une vitrine
+- [x] Afficher les montres associées
+
+**État : Terminée**
+
+---
+
+## Étape 10 — Contextualisation des contrôleurs
+
+- [x] Réorganiser les contrôleurs
+- [x] Contextualiser la consultation des montres
+- [x] Vérifier l'appartenance d'une montre à une vitrine
+- [x] Adapter les routes
+
+**État : Terminée**
+
+---
+
+## Étape 11 — Gestion des montres
+
+- [x] Créer les pages des membres
+- [x] Créer le CRUD des montres
+- [x] Associer les montres aux collections
+- [x] Adapter les redirections
+- [x] Vérifier les opérations CRUD
+
+**État : Terminée**
+
+---
+
+## Étape 12 — Gestion contextualisée des vitrines
+
+- [x] Afficher les vitrines du membre
+- [x] Créer une vitrine depuis l'espace personnel
+- [x] Associer automatiquement la vitrine au membre
+- [x] Adapter les redirections
+- [x] Filtrer les vitrines publiées
+- [x] Afficher les vitrines privées dans l'espace personnel
+
+**État : Terminée**
+
+---
+
+## Étape 13 — Sélection des montres
+
+- [x] Adapter VitrineType
+- [x] Ajouter la sélection multiple
+- [x] Utiliser expanded et multiple
+- [x] Configurer by_reference
+- [x] Filtrer les montres selon la collection
+- [x] Vérifier les associations ManyToMany
+
+**État : Terminée**
+
+---
+
+## Étape 14 — Gestion des images
+
+- [x] Installer VichUploaderBundle
+- [x] Configurer le stockage des images
+- [x] Ajouter les propriétés nécessaires à Montre
+- [x] Adapter MontreType
+- [x] Permettre le téléversement des images
+- [x] Afficher les photos des montres
+- [x] Afficher les photos dans les vitrines
+- [x] Ajouter les images dans les fixtures
+- [x] Configurer .gitignore
+
+**État : Terminée**
+
+---
+
+## Étape 15 — Authentification
+
+- [x] Générer le formulaire de connexion
+- [x] Configurer security.yaml
+- [x] Authentifier les membres par e-mail
+- [x] Ajouter la route de connexion
+- [x] Ajouter la route de déconnexion
+- [x] Rediriger vers l'espace personnel
+- [x] Adapter la barre de navigation
+- [x] Tester la connexion
+- [x] Tester la déconnexion
+
+**État : Terminée**
+
+---
+
+## Étape 16 — Sécurité
+
+- [x] Protéger MemberController
+- [x] Protéger les opérations CRUD de MontreController
+- [x] Protéger les opérations CRUD de VitrineController
+- [x] Vérifier le membre connecté
+- [x] Vérifier le propriétaire d'une collection
+- [x] Vérifier le propriétaire d'une vitrine
+- [x] Restreindre les vitrines privées
+- [x] Contrôler les montres sélectionnées
+- [x] Vérifier les autorisations dans les contrôleurs
+
+**État : Implémentée**
+
+---
+
+## Étape 17 — Contextualisation
+
+- [x] Personnaliser la page du membre
+- [x] Afficher sa collection
+- [x] Afficher ses vitrines
+- [x] Ajouter les boutons de création
+- [x] Afficher le statut des vitrines
+- [x] Adapter montre/index.html.twig
+- [x] Adapter montre/show.html.twig
+- [x] Adapter vitrine/index.html.twig
+- [x] Adapter vitrine/show.html.twig
+- [x] Adapter watch_collection/show.html.twig
+- [x] Afficher les actions selon le propriétaire
+- [x] Conserver les images
+- [x] Vérifier la syntaxe Twig
+
+**État : Implémentée**
+
+---
+
+## Étape 18 — Vérifications finales
+
+- [x] Vérifier la syntaxe Twig
+- [x] Vérifier le mapping Doctrine
+- [x] Vérifier la synchronisation de SQLite
+- [x] Vérifier les routes Symfony
+- [x] Vérifier l'état du dépôt Git
+- [x] Préparer la documentation finale
+
+**État : Vérifications techniques réussies**
+
+---
+
+## Évolutions facultatives
+
+Les fonctionnalités suivantes ne font pas partie du périmètre livré :
+
+- Back-office d'administration.
+- Tests automatisés supplémentaires.
+- Amélioration des messages flash.
+- Améliorations graphiques.
+
+---
+
+## Bilan
+
+Les fonctionnalités principales de WatchVault sont développées :
+
+- Gestion des membres.
+- Gestion des collections.
+- Gestion des montres.
+- Gestion des vitrines.
+- Authentification.
+- Contrôle d'accès.
+- Téléversement d'images.
+- Contextualisation des interfaces.
+
+**Statut : Développement fonctionnel terminé.**

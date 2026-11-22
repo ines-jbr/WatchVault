@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Member;
 use App\Entity\Montre;
 use App\Entity\WatchCollection;
 use App\Form\MontreType;
@@ -11,10 +12,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/montre')]
 final class MontreController extends AbstractController
 {
+    // Liste publique des montres
     #[Route(name: 'app_montre_index', methods: ['GET'])]
     public function index(MontreRepository $montreRepository): Response
     {
@@ -23,12 +26,16 @@ final class MontreController extends AbstractController
         ]);
     }
 
+    // Création réservée au propriétaire de la collection
+    #[IsGranted('ROLE_USER')]
     #[Route('/new/{id}', name: 'app_montre_new', methods: ['GET', 'POST'])]
     public function new(
         Request $request,
         EntityManagerInterface $entityManager,
         WatchCollection $watchCollection
     ): Response {
+        $this->checkCollectionOwner($watchCollection);
+
         $montre = new Montre();
         $montre->setWatchCollection($watchCollection);
 
@@ -52,6 +59,7 @@ final class MontreController extends AbstractController
         ]);
     }
 
+    // Consultation publique d'une montre
     #[Route('/{id}', name: 'app_montre_show', methods: ['GET'])]
     public function show(Montre $montre): Response
     {
@@ -60,12 +68,16 @@ final class MontreController extends AbstractController
         ]);
     }
 
+    // Modification réservée au propriétaire
+    #[IsGranted('ROLE_USER')]
     #[Route('/{id}/edit', name: 'app_montre_edit', methods: ['GET', 'POST'])]
     public function edit(
         Request $request,
         Montre $montre,
         EntityManagerInterface $entityManager
     ): Response {
+        $this->checkCollectionOwner($montre->getWatchCollection());
+
         $form = $this->createForm(MontreType::class, $montre);
         $form->handleRequest($request);
 
@@ -85,13 +97,16 @@ final class MontreController extends AbstractController
         ]);
     }
 
+    // Suppression réservée au propriétaire
+    #[IsGranted('ROLE_USER')]
     #[Route('/{id}', name: 'app_montre_delete', methods: ['POST'])]
     public function delete(
         Request $request,
         Montre $montre,
         EntityManagerInterface $entityManager
     ): Response {
-        // Récupérer l'identifiant avant de supprimer la montre.
+        $this->checkCollectionOwner($montre->getWatchCollection());
+
         $watchCollectionId = $montre->getWatchCollection()->getId();
 
         if ($this->isCsrfTokenValid(
@@ -107,5 +122,25 @@ final class MontreController extends AbstractController
             ['id' => $watchCollectionId],
             Response::HTTP_SEE_OTHER
         );
+    }
+
+    // Vérification du propriétaire de la collection
+    private function checkCollectionOwner(WatchCollection $watchCollection): void
+    {
+        $member = $this->getUser();
+
+        if (!$member instanceof Member) {
+            throw $this->createAccessDeniedException(
+                'Vous devez être connecté pour effectuer cette action.'
+            );
+        }
+
+        $owner = $watchCollection->getMember();
+
+        if ($owner === null || $owner->getId() !== $member->getId()) {
+            throw $this->createAccessDeniedException(
+                'Vous ne pouvez pas modifier les montres de cette collection.'
+            );
+        }
     }
 }

@@ -16,46 +16,26 @@ final class WatchCollectionController extends AbstractController
         $watchCollectionRepo = $doctrine->getRepository(WatchCollection::class);
         $watchCollections = $watchCollectionRepo->findAll();
 
-        $htmlpage = '<!DOCTYPE html>';
-        $htmlpage .= '<html>';
-        $htmlpage .= '<head><title>Liste des collections</title></head>';
-        $htmlpage .= '<body>';
-        $htmlpage .= '<h1>Liste des collections</h1>';
-        $htmlpage .= '<ul>';
-
-        foreach ($watchCollections as $watchCollection) {
-            $url = $this->generateUrl(
-                'watch_collection_show',
-                ['id' => $watchCollection->getId()]
-                );
-            
-            $htmlpage .= '<li>';
-            $htmlpage .= '<a href="' . $url . '">';
-            $htmlpage .= $watchCollection->getDescription();
-            $htmlpage .= '</a>';
-            $htmlpage .= '</li>';
-        }
-
-        $htmlpage .= '</ul>';
-        $htmlpage .= '</body>';
-        $htmlpage .= '</html>';
-
-        return new Response(
-            $htmlpage,
-            Response::HTTP_OK,
-            ['content-type' => 'text/html']
-        );
+        return $this->render('watch_collection/index.html.twig', [
+            'watchCollections' => $watchCollections,
+        ]);
     }
-    
-    #[Route('/watch/collection/{id}', name: 'watch_collection_show', requirements: ['id' => '\d+'])]
+
+    #[Route(
+        '/watch/collection/{id}',
+        name: 'watch_collection_show',
+        requirements: ['id' => '\d+']
+    )]
     public function show(ManagerRegistry $doctrine, $id): Response
     {
         $watchCollectionRepo = $doctrine->getRepository(WatchCollection::class);
         $watchCollection = $watchCollectionRepo->find($id);
 
         if (!$watchCollection) {
-            throw $this->createNotFoundException('The watch collection does not exist');
-            }
+            throw $this->createNotFoundException(
+                'The watch collection does not exist'
+            );
+        }
 
         return $this->render('watch_collection/show.html.twig', [
             'watchCollection' => $watchCollection,

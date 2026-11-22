@@ -27,6 +27,7 @@
         {% block menu %}
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container px-4 px-lg-5">
+
                     <a class="navbar-brand" href="{{ path('watch_collection_list') }}">
                         WatchVault
                     </a>
@@ -41,7 +42,47 @@
                     </button>
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                        {# Menu principal Bootstrap #}
                         {{ render_bootstrap_menu('main') }}
+
+                        {# Menu d'authentification #}
+                        <div class="ms-auto d-flex align-items-center gap-3">
+
+                            {% if app.user %}
+
+                                {# Adresse e-mail du membre connecté #}
+                                <span class="text-muted">
+                                    <i class="bi bi-person-circle"></i>
+                                    {{ app.user.userIdentifier }}
+                                </span>
+
+                                {# Accès à l'espace membre #}
+                                <a href="{{ path('app_member_show', {'id': app.user.id}) }}"
+                                   class="btn btn-outline-primary">
+                                    Mon espace
+                                </a>
+
+                                {# Déconnexion #}
+                                <a href="{{ path('app_logout') }}"
+                                   class="btn btn-outline-danger">
+                                    <i class="bi bi-box-arrow-right"></i>
+                                    Déconnexion
+                                </a>
+
+                            {% else %}
+
+                                {# Connexion #}
+                                <a href="{{ path('app_login') }}"
+                                   class="btn btn-primary">
+                                    <i class="bi bi-box-arrow-in-right"></i>
+                                    Connexion
+                                </a>
+
+                            {% endif %}
+
+                        </div>
+
                     </div>
                 </div>
             </nav>
